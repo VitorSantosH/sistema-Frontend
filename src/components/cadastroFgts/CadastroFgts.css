@@ -1,0 +1,152 @@
+.CadastroFgts {
+    background-color: rgba(241, 242, 247, 0.9);
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 1rem 10%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    line-height: 1.5;
+}
+
+.CadastroFgts .boxtitle {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    color: rgba(56, 54, 54, 0.9);
+    box-sizing: border-box;
+    font-size: 1.4rem;
+
+}
+
+.formularioFgts {
+    width: 100%;
+    box-shadow: 10px 0px 8px 0px rgba(0, 0, 0, 0.10);
+    box-sizing: border-box;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+    color: #212529;
+}
+
+.formularioFgts .subtitle {
+    width: 100%;
+    background-color: rgb(41, 56, 139);
+    line-height: 1.5;
+    color: #fff;
+    display: flex;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    font-size: 0.9rem;
+    padding-left: 1rem;
+}
+
+.form {
+    display: flex;
+    padding: 1rem;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.containerInput {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    min-width: 250px;
+    margin: 1rem;
+    box-sizing: border-box;
+    overflow: hidden;
+    border: solid 2px transparent;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+    transition: all 0.3ms;
+    padding-bottom: 1rem;
+
+}
+
+.containerInput label {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+}
+
+.containerInput input {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    color: #212529;
+    transition: border-color 0.2s;
+    transition: all 0.3ms;
+    padding-left: 1rem;
+    font-size: 0.9rem;
+
+}
+
+.containerInput input:focus {
+    outline: none;
+}
+
+.containerInput div:focus-within, .containerInput div:active {
+    outline: none;
+    border-color: #17a2b8;
+    border: solid 2px #17a2b8;
+    box-shadow: 0.1em 0.1em 0.1em #17a2b8;
+    transition: border-color 0.2s;
+    transition: all 0.3ms;
+}
+
+
+.containerInput div {
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+.inputBox {
+    border: 2px solid #ced4da;
+}
+
+.containerInput div i {
+    margin: 5px;
+}
+
+.btnIcon {
+    background-color: #ced4da;
+}
+
+.btnPesquisaCpf {
+    color: white;
+    background-color: #28a745;
+    cursor: pointer;
+}
+
+.btnPesquisaCpf:active {
+
+    filter: brightness(2);
+}
+
+.containerInput select {
+    width: 100%;
+    background-color: transparent;
+    color: #212529;
+    border: none;
+    cursor: pointer;
+}
+
+.form  {
+    box-sizing: border-box;
+}
+
+.form .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-end;
+    width: 100%;
+}
