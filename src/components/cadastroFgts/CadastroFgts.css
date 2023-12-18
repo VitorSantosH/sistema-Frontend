@@ -150,3 +150,58 @@
     align-items: flex-end;
     width: 100%;
 }
+
+.inputMenor {
+    width: 20%;
+    min-width: 200px;
+}
+
+.CadastroFgts .subtitleHr {
+    width: 100%;
+    color: #fff;
+    background-color: #ed8d2d;
+   
+
+}
+
+
+
+
+@media only screen and (max-width: 1000px) {
+
+    .inputMenor, .containerInput {
+        width: 45%;
+    }
+   
+}
+
+@media only screen and (max-width: 850px) {
+
+    .inputMenor, .containerInput {
+        width: 100%;
+    }
+   
+}
+
+@media only screen and (max-width: 650px) {
+
+    .CadastroFgts {
+        padding: 1rem 2%;
+    }
+   
+}
+
+@media only screen and (max-width: 500px) {
+
+    .CadastroFgts {
+        padding: 1rem 2%;
+    }
+
+    .form {
+        padding: 1rem 1%;
+    }
+    
+    
+}
+
+
