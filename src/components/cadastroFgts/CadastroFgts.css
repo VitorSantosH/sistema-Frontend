@@ -106,6 +106,7 @@
     width: 100%;
     box-sizing: border-box;
     border-radius: 4px;
+    height: 2rem;
 }
 
 .inputBox {
@@ -164,6 +165,21 @@
 
 }
 
+.representanteLegalInput div {
+
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.representanteLegalInput section{
+    display: flex;
+}
+
+.representanteLegalInput section input[type="radio"] {
+    width: 1.5rem;
+    height: 1.5rem;
+    cursor: pointer;
+}
 
 
 

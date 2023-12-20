@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Select from 'react-select';
 import './CadastroFgts.css';
 import NumberFormat from 'react-number-format'
 import axios from 'axios';
@@ -6,7 +7,8 @@ import swal from 'sweetalert2'
 
 //components 
 import Menu from "../menu/Menu";
-import { emissores, ufs } from './ufs_orgEmissor.jsx';
+import { emissores, ufs, bancosBrasil } from './ufs_orgEmissor.jsx';
+import SelectBank from "./SelectBank.jsx";
 
 
 const CadastroFgts = () => {
@@ -36,8 +38,11 @@ const CadastroFgts = () => {
         celular: '',
         fixo: '',
         email: '',
-
-
+        mantenededora: '',
+        renda: '',
+        representanteLegal: 'NAO',
+        metodoPagamento: 'CARTAO',
+        banco: '',
 
     })
 
@@ -85,6 +90,25 @@ const CadastroFgts = () => {
 
 
         return
+
+    }
+
+    function handleRepresentanteLegal(e) {
+        console.log(e.target.value)
+        return setState({
+            ...state,
+            representanteLegal: e.target.value
+        })
+    }
+
+    function setBankOption(e) {
+
+        console.log(e.value)
+
+        return setState({
+            ...state,
+            banco: e.value
+        })
 
     }
 
@@ -694,6 +718,7 @@ const CadastroFgts = () => {
                                         <i className="fa fa-map-marker" />
                                     </section>
 
+
                                     <select
                                         id="estadoEndereco"
                                         name="estadoEndereco"
@@ -1026,10 +1051,148 @@ const CadastroFgts = () => {
 
                     </div>
 
+
+
+                    <h2
+                        className="subtitleHr"
+                    >      Dados Benefício </h2>
+
+
+                    <div className="form">
+
+                        <div className="row">
+
+                            <div className="containerInput inputMenor">
+
+                                <label htmlFor="mantenedora">UF Mantenedora:</label>
+
+                                <div className="inputBox">
+
+                                    <section className='btnIcon'>
+                                        <i className="fa fa-map-marker" />
+                                    </section>
+
+                                    <select
+                                        id="mantenedora"
+                                        name="mantenedora"
+                                        value={state.mantenededora || ''}
+                                        onChange={e => {
+                                            return setState({
+                                                ...state,
+                                                mantenededora: e.target.value
+                                            })
+                                        }}
+                                    >
+
+                                        <option value=''>Selecione...</option>
+                                        {CreateUfsOptions()}
+                                    </select>
+
+
+                                </div>
+
+                            </div>
+
+
+
+                            <div className="containerInput inputMenor ">
+
+                                <label htmlFor=''>Renda:</label>
+
+                                <div className="inputBox">
+
+                                    <section className='btnIcon'>
+                                        <i className="fa fa-money" />
+                                    </section>
+
+                                    <NumberFormat
+                                        decimalScale={2}
+                                        fixedDecimalScale
+                                        allowedDecimalSeparators={[',']}
+                                        prefix={'R$'}
+                                        className='inputTel'
+                                        aria-describedby=''
+                                        placeholder="R$0.00"
+                                        value={state.renda || ''}
+                                        //  style={{ 'borderColor': stateCadLoja.stateEmailStyle ? '' : '#EE3B3B' }}
+                                        onValueChange={(values, info) => {
+
+                                            const { formattedValue, value } = values;
+
+                                            return setState({
+                                                ...state,
+                                                renda: value
+                                            })
+
+                                        }}
+
+
+                                    />
+
+
+                                </div>
+
+                            </div>
+                            <div className="containerInput representanteLegalInput ">
+
+                                <label htmlFor=''>Possui Representante Legal:</label>
+
+                                <div>
+
+                                    <section>
+                                        <label htmlFor="">Não</label>
+                                        <input
+                                            type="radio"
+                                            value={"NAO"}
+                                            checked={state.representanteLegal === 'NAO'}
+                                            onChange={e => handleRepresentanteLegal(e)}
+
+                                        />
+
+                                    </section>
+
+                                    <section>
+                                        <label htmlFor="">SIM</label>
+                                        <input
+                                            type="radio"
+                                            value={'SIM'}
+                                            checked={state.representanteLegal === 'SIM'}
+                                            onChange={e => handleRepresentanteLegal(e)}
+
+                                        />
+                                    </section>
+                                </div>
+
+
+                            </div>
+
+
+                            <div>
+                                <SelectBank setBankOption={setBankOption} />
+                            </div>
+
+
+                        </div>
+
+                        <div className="row">
+
+
+
+
+
+                        </div>
+
+
+                    </div>
+
+
                 </div>
 
 
+
+
             </div>
+
         </>
     )
 
