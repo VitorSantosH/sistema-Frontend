@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Select from 'react-select';
 import './SelectBank.css'
 
-import { emissores, ufs, bancosBrasil } from './ufs_orgEmissor.jsx';
+import { emissores, ufs, bancosBrasil } from '../ufs_orgEmissor.jsx';
 
 const SelectBank = props => {
 
@@ -45,7 +45,7 @@ const SelectBank = props => {
                 <div className="selectBox">
 
                     <section className='btnIcon'>
-                        <i className="fa fa-map-marker" />
+                        <i className="fa fa-university" />
 
                         <Select
                         placeholder='Selecione...'

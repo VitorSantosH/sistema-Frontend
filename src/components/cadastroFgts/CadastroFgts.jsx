@@ -8,7 +8,7 @@ import swal from 'sweetalert2'
 //components 
 import Menu from "../menu/Menu";
 import { emissores, ufs, bancosBrasil } from './ufs_orgEmissor.jsx';
-import SelectBank from "./SelectBank.jsx";
+import SelectBank from "./subComponents/SelectBank.jsx";
 
 
 const CadastroFgts = () => {
@@ -43,6 +43,11 @@ const CadastroFgts = () => {
         representanteLegal: 'NAO',
         metodoPagamento: 'CARTAO',
         banco: '',
+        metodoPgt: undefined,
+        nConta: '',
+        agencia: '', 
+        libCredito: ''
+
 
     })
 
@@ -98,6 +103,27 @@ const CadastroFgts = () => {
         return setState({
             ...state,
             representanteLegal: e.target.value
+        })
+    }
+
+    function handleMetodoPgt(e) {
+
+        console.log(e.target.value)
+
+        return setState({
+            ...state,
+            metodoPgt: e.target.value
+        })
+    }
+
+    
+    function handleLibCredito(e) {
+
+        console.log(e.target.value)
+
+        return setState({
+            ...state,
+            libCredito: e.target.value
         })
     }
 
@@ -668,6 +694,7 @@ const CadastroFgts = () => {
                                         onKeyPress={e => {
 
                                             if (e.key === "Enter") {
+
                                                 if (regexCEP.test(state.cep)) {
 
                                                     return getCEP(state.cep)
@@ -843,6 +870,7 @@ const CadastroFgts = () => {
                                         name=''
                                         id=''
                                         value={state.numero || ''}
+
                                         onChange={e => {
                                             return setState({
                                                 ...state,
@@ -1133,6 +1161,13 @@ const CadastroFgts = () => {
                                 </div>
 
                             </div>
+
+
+                        </div>
+
+                        <div className="row">
+
+
                             <div className="containerInput representanteLegalInput ">
 
                                 <label htmlFor=''>Possui Representante Legal:</label>
@@ -1140,35 +1175,37 @@ const CadastroFgts = () => {
                                 <div>
 
                                     <section>
-                                        <label htmlFor="">Não</label>
+
                                         <input
                                             type="radio"
                                             value={"NAO"}
                                             checked={state.representanteLegal === 'NAO'}
                                             onChange={e => handleRepresentanteLegal(e)}
+                                            style={{ 'minWidth': "20px", "height": "20px", "overflow": 'hidden' }}
 
                                         />
+
+                                        <label htmlFor="">Não</label>
+
 
                                     </section>
 
                                     <section>
-                                        <label htmlFor="">SIM</label>
+
                                         <input
                                             type="radio"
                                             value={'SIM'}
                                             checked={state.representanteLegal === 'SIM'}
                                             onChange={e => handleRepresentanteLegal(e)}
+                                            style={{ 'minWidth': "20px", "height": "20px", "overflow": 'hidden' }}
 
                                         />
+
+                                        <label htmlFor="">SIM</label>
+
                                     </section>
                                 </div>
 
-
-                            </div>
-
-
-                            <div>
-                                <SelectBank setBankOption={setBankOption} />
                             </div>
 
 
@@ -1177,11 +1214,151 @@ const CadastroFgts = () => {
                         <div className="row">
 
 
+                            <div
+                                className="containerInput representanteLegalInput "
+                              
+                            >
 
+                                <label htmlFor=''>Pagamento através de:</label>
 
+                                <div>
+
+                                    <section>
+
+                                        <input
+                                            type="radio"
+                                            value={'CARTAO-MAG'}
+                                            checked={state.metodoPgt === 'CARTAO-MAG'}
+                                            onChange={e => handleMetodoPgt(e)}
+                                            style={{ 'minWidth': "20px", "height": "20px", "overflow": 'hidden' }}
+
+                                        />
+
+                                        <label htmlFor="">Cartão Magnético</label>
+
+                                    </section>
+
+                                    <section>
+
+                                        <input
+                                            type="radio"
+                                            value={'CONTA-CORRENTE'}
+                                            checked={state.metodoPgt === 'CONTA-CORRENTE'}
+                                            onChange={e => handleMetodoPgt(e)}
+                                            style={{ 'minWidth': "20px", "height": "20px", "overflow": 'hidden' }}
+
+                                        />
+
+                                        <label htmlFor="">Conta Corrente</label>
+
+                                    </section>
+                                </div>
+                            </div>
+
+                            <div>
+                                <SelectBank setBankOption={setBankOption} />
+                            </div>
+
+                            <div className="containerInput inputMenor ">
+
+                                <label htmlFor=''>Agência:</label>
+
+                                <div className="inputBox">
+
+                                    <section className='btnIcon'>
+                                        <i className="fa fa-university" />
+                                    </section>
+
+                                    <input
+                                        type="text"
+                                        name=''
+                                        id=''
+                                        value={state.agencia || ''}
+                                        onChange={e => {
+                                            return setState({
+                                                ...state,
+                                                agencia: e.target.value
+                                            })
+                                        }}
+                                    />
+
+                                </div>
+
+                            </div>
+
+                            <div className="containerInput inputMenor">
+
+                                <label htmlFor=''>Nº da conta:</label>
+
+                                <div className="inputBox">
+
+                                    <section className='btnIcon'>
+                                        <i className="fa fa-university" />
+                                    </section>
+
+                                    <input
+                                        type="text"
+                                        name=''
+                                        id=''
+                                        value={state.nConta || ''}
+                                        onChange={e => {
+                                            return setState({
+                                                ...state,
+                                                nConta: e.target.value
+                                            })
+                                        }}
+                                    />
+
+                                </div>
+
+                            </div>
 
                         </div>
 
+                        <div className="row">
+
+
+                            <div
+                                className="containerInput representanteLegalInput "
+                              
+                            >
+
+                                <label htmlFor=''>Liberação de crédito:</label>
+
+                                <div>
+
+                                    <section>
+
+                                        <input
+                                            type="radio"
+                                            value={'TED'}
+                                            checked={state.libCredito === 'TED'}
+                                            onChange={e => handleLibCredito(e)}
+                                            style={{ 'minWidth': "20px", "height": "20px", "overflow": 'hidden' }}
+
+                                        />
+
+                                        <label htmlFor="">TED</label>
+
+                                    </section>
+
+                                    <section>
+
+                                        <input
+                                            type="radio"
+                                            value={'OP'}
+                                            checked={state.libCredito === 'OP'}
+                                            onChange={e => handleLibCredito(e)}
+                                            style={{ 'minWidth': "20px", "height": "20px", "overflow": 'hidden' }}
+
+                                        />
+
+                                        <label htmlFor="">OP</label>
+
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
 
