@@ -2,22 +2,24 @@
     display: flex;
     width: 100%;
     margin: 0.5rem 1rem;
-   
+
     box-sizing: border-box;
 }
+
 
 .containerSelect {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    
+
 }
 
 .containerSelect .selectBox {
     display: flex;
     border-radius: 4px;
-    width: 30vw;
+    width: max-content;
     min-width: 200px;
+
 }
 
 .btnIcon {
@@ -29,10 +31,65 @@
 }
 
 .containerSelect .selectBox i {
-    
+
     margin: 5px;
 }
 
 .css-b62m3t-container {
+    max-width: 300px;
     width: 25vw;
+}
+
+@media only screen and (max-width: 1250px) {
+
+    .form .row {
+        justify-content: space-between;
+
+    }
+
+}
+
+@media only screen and (max-width: 990px) {
+
+    .css-b62m3t-container {
+
+        width: 45vw;
+    }
+
+}
+
+@media only screen and (max-width: 930px) {
+
+
+    .boxSelect {
+        width: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+    .containerSelect {
+        width: 100%;
+    }
+
+    .containerSelect .selectBox  {
+        width: 100%;
+    
+      
+    }
+
+    .css-b62m3t-container {
+        width: 68vw;
+        max-width: none;
+    }
+
+}
+
+@media only screen and (max-width: 650px) {
+
+    .css-b62m3t-container {
+
+        width: 80vw;
+    }
+
+
 }

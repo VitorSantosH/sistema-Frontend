@@ -1980,5 +1980,63 @@ const bancosBrasil = [
     }
 ]
 
+const formaContratos = [
+    {
+        value: 1,
+        label: "NOVO"
+    },
+    {
+        value: 2,
+        label: 'REFIN'
+    }
+]
 
-export { emissores, ufs, bancosBrasil };
+const convenioFinanciamanto = [
+    {
+        value: 'INSS',
+
+    },
+    {
+        value: 'GOVERNO DE SÂO PAULO',
+
+    },
+
+
+]
+
+const tabelaCommissao = [
+    {
+        value: 'null',
+
+    },
+    {
+        value: 'null',
+
+    },
+
+
+]
+
+const agentes = [
+
+    {
+        value: 'null',
+
+    },
+    {
+        value: 'null',
+
+    },
+
+]
+
+
+export {
+    emissores,
+    ufs,
+    bancosBrasil,
+    formaContratos,
+    convenioFinanciamanto,
+    tabelaCommissao,
+    agentes
+};

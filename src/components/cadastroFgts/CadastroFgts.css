@@ -106,7 +106,7 @@
     width: 100%;
     box-sizing: border-box;
     border-radius: 4px;
-    height: 2rem;
+    height: 2.35rem;
 }
 
 .inputBox {
@@ -183,7 +183,7 @@
 }
 
 .representanteLegalInput {
-    width: max-content;
+    width: 25vw;
     
 }
 
@@ -225,6 +225,16 @@
     }
     
     
+    
 }
 
 
+
+@media only screen and (max-width: 500px) {
+
+
+    .CadastroFgts {
+        padding: 0;
+      }
+    
+}

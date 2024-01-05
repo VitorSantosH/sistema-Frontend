@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Select from 'react-select';
 import './SelectBank.css'
 
-import { emissores, ufs, bancosBrasil } from '../ufs_orgEmissor.jsx';
+import { emissores, ufs, bancosBrasil } from './ufs_orgEmissor.jsx';
 
 const SelectBank = props => {
 
@@ -11,16 +11,27 @@ const SelectBank = props => {
 
     function CreateBancosOptions() {
 
-        const bancos = bancosBrasil.map((e, i) => {
+        if (props.option) {
 
-            /*return (
-                <option key={e.bank + i} value={e.bank}>{`${e.code}: ${e.bank}`}</option>
-            )
-            */
-            return { value: e.bank, label: `${e.code}: ${e.bank}` }
-        })
+            const options = props.option.map((e, i) => {
 
-        return bancos
+                return {value: e.value, label: e.label || e.value}
+            })
+
+            return options
+
+        } else {
+            const bancos = bancosBrasil.map((e, i) => {
+
+                /*return (
+                    <option key={e.bank + i} value={e.bank}>{`${e.code}: ${e.bank}`}</option>
+                )
+                */
+                return { value: e.bank, label: `${e.code}: ${e.bank}` }
+            })
+
+            return bancos
+        }
     }
 
     const customStyles = {
@@ -40,31 +51,33 @@ const SelectBank = props => {
 
             <div className="containerSelect">
 
-                <label htmlFor="ufrg">Banco:</label>
+                <label htmlFor="ufrg">{props.label}:</label>
 
                 <div className="selectBox">
 
                     <section className='btnIcon'>
-                        <i className="fa fa-university" />
+
+
+                        <i className={props.icon || "fa fa-university"} />
 
                         <Select
-                        placeholder='Selecione...'
-                        menuPosition="fixed"
-                        defaultValue={selectBankOption}
-                        onChange={e => {
+                            placeholder='Selecione...'
+                            menuPosition="fixed"
+                            defaultValue={selectBankOption}
+                            onChange={e => {
 
-                     
-                            props.setBankOption(e)
-                            return setSelectBankOption(e)
-                        }}
-                        options={CreateBancosOptions()}
-                        styles={customStyles}
-                    />
+
+                                props.action(e)
+                                return setSelectBankOption(e)
+                            }}
+                            options={CreateBancosOptions()}
+                            styles={customStyles}
+                        />
 
 
                     </section>
 
-                  
+
                 </div>
 
             </div>

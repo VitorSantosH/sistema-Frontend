@@ -7,7 +7,16 @@ import swal from 'sweetalert2'
 
 //components 
 import Menu from "../menu/Menu";
-import { emissores, ufs, bancosBrasil } from './ufs_orgEmissor.jsx';
+import {
+    emissores,
+    ufs,
+    bancosBrasil,
+    formaContratos,
+    convenioFinanciamanto,
+    tabelaCommissao,
+    agentes
+
+} from './subComponents/ufs_orgEmissor.jsx';
 import SelectBank from "./subComponents/SelectBank.jsx";
 
 
@@ -45,8 +54,22 @@ const CadastroFgts = () => {
         banco: '',
         metodoPgt: undefined,
         nConta: '',
-        agencia: '', 
-        libCredito: ''
+        agencia: '',
+        libCredito: '',
+        bancoReceber: '',
+        agenciaReceber: '',
+        contaReceber: '',
+        tipoContaReceber: '',
+        bancoFinanciamento: '',
+        formaContrato: '',
+        convenioFinanciamanto: "",
+        tabelaCommissao: '',
+        agente: '',
+        valorBaseComissao: '',
+        prazoComissao: '',
+        tipoFormalizacao: '',
+        numeroAcompanhamento: '',
+        observacao: '',
 
 
     })
@@ -116,7 +139,7 @@ const CadastroFgts = () => {
         })
     }
 
-    
+
     function handleLibCredito(e) {
 
         console.log(e.target.value)
@@ -137,6 +160,109 @@ const CadastroFgts = () => {
         })
 
     }
+
+    function setBankReceber(e) {
+
+        console.log(e.value)
+
+        return setState({
+            ...state,
+            bancoReceber: e.value
+        })
+
+    }
+
+    function setAgenciaReceber(e) {
+
+        console.log(e.value)
+
+        return setState({
+            ...state,
+            agenciaReceber: e.value
+        })
+
+    }
+
+    function setContaReceber(e) {
+
+        console.log(e.value)
+
+        return setState({
+            ...state,
+            contaReceber: e.value
+        })
+
+    }
+
+
+    function setBancoFinanciamento(e) {
+
+        console.log(e.value)
+
+        return setState({
+            ...state,
+            bancoFinanciamento: e.value
+        })
+
+    }
+
+    function setFormaContrato(e) {
+
+        console.log(e.value)
+
+        return setState({
+            ...state,
+            formaContrato: e.value
+        })
+
+    }
+
+    function setConvenio(e) {
+
+        console.log(e.value)
+
+        return setState({
+            ...state,
+            convenioFinanciamanto: e.value
+        })
+
+    }
+
+    function setTabelaComissao(e) {
+
+        console.log(e.value)
+
+        return setState({
+            ...state,
+            tabelaCommissao: e.value
+        })
+
+    }
+
+    function setAgente(e) {
+
+        console.log(e.value)
+
+        return setState({
+            ...state,
+            agente: e.value
+        })
+
+    }
+
+    function setValorBaseComissao(e) {
+
+        console.log(e.value)
+
+        return setState({
+            ...state,
+            valorBaseComissao: e.value
+        })
+
+    }
+
+
+
 
     return (
         <>
@@ -1216,7 +1342,7 @@ const CadastroFgts = () => {
 
                             <div
                                 className="containerInput representanteLegalInput "
-                              
+
                             >
 
                                 <label htmlFor=''>Pagamento através de:</label>
@@ -1255,8 +1381,8 @@ const CadastroFgts = () => {
                                 </div>
                             </div>
 
-                            <div>
-                                <SelectBank setBankOption={setBankOption} />
+                            <div className={'boxSelect'}>
+                                <SelectBank action={setBankOption} label={'Banco'} />
                             </div>
 
                             <div className="containerInput inputMenor ">
@@ -1320,7 +1446,7 @@ const CadastroFgts = () => {
 
                             <div
                                 className="containerInput representanteLegalInput "
-                              
+
                             >
 
                                 <label htmlFor=''>Liberação de crédito:</label>
@@ -1358,10 +1484,151 @@ const CadastroFgts = () => {
                                     </section>
                                 </div>
                             </div>
+
+                            <div className={'boxSelect'}>
+
+                                <SelectBank action={setBankReceber} label={'Banco de recebimento'} />
+
+                            </div>
+
+                            <div className={'boxSelect'}>
+
+                                <SelectBank action={setAgenciaReceber} label={'Agência (Recebe)'} />
+
+                            </div>
+
+
+                            <div className={'boxSelect'}>
+
+                                <SelectBank action={setContaReceber} label={'Conta (Recebe)'} />
+
+                            </div>
+
+
+                            <div className="containerInput inputMenor">
+
+                                <label htmlFor="mantenedora">Tipo da conta:</label>
+
+                                <div className="inputBox">
+
+                                    <section className='btnIcon'>
+                                        <i className="fa fa-map-marker" />
+                                    </section>
+
+                                    <select
+                                        id="mantenedora"
+                                        name="mantenedora"
+                                        value={state.tipoContaReceber || ''}
+                                        onChange={e => {
+                                            return setState({
+                                                ...state,
+                                                tipoContaReceber: e.target.value
+                                            })
+                                        }}
+                                    >
+
+                                        <option value=''>Selecione...</option>
+                                        <option value={'CORRENTE'}>{`Conta corrente`}</option>
+                                        <option value={'POUPANCA'}>{`Conta poupança`}</option>
+                                    </select>
+
+
+                                </div>
+
+                            </div>
+
                         </div>
 
                     </div>
 
+
+                    <h2
+                        className="subtitleHr"
+                    >       Financiamento</h2>
+
+                    <div className="form">
+
+                        <div className="row">
+
+                            <div className={'boxSelect'}>
+
+                                <SelectBank action={setBancoFinanciamento} label={'Banco de financiamento'} />
+
+                            </div>
+
+                            <div className={'boxSelect'}>
+
+                                <SelectBank action={setFormaContrato} label={'Forma de contrato'} option={formaContratos} icon="fa fa-text-width" />
+
+                            </div>
+
+                            <div className={'boxSelect'}>
+
+                                <SelectBank action={setConvenio} label={'Convênio'} option={convenioFinanciamanto} icon="fa fa-text-width" />
+
+                            </div>
+
+
+
+
+                        </div>
+
+                        <div className="row">
+
+                            <div className={'boxSelect'}>
+
+                                <SelectBank action={setTabelaComissao} label={'Tabela de comissão'} option={tabelaCommissao} icon="fa fa-text-width" />
+
+                            </div>
+
+                            <div className={'boxSelect'}>
+
+                                <SelectBank action={setAgente} label={'Agente'} option={agentes} icon="fa fa-text-width" />
+
+                            </div>
+
+
+                            <div className="containerInput inputMenor">
+
+                                <label htmlFor=''>Valor base comissão:</label>
+
+                                <div className="inputBox">
+
+                                    <section className='btnIcon'>
+                                        <i className="fa fa-money" />
+                                    </section>
+
+
+                                    <NumberFormat
+                                        decimalScale={2}
+                                        fixedDecimalScale
+                                        allowedDecimalSeparators={[',']}
+                                        prefix={'R$'}
+                                        className='inputTel'
+                                        aria-describedby=''
+                                        placeholder="R$0.00"
+                                        value={state.valorBaseComissao || ''}
+                                        //  style={{ 'borderColor': stateCadLoja.stateEmailStyle ? '' : '#EE3B3B' }}
+                                        onValueChange={(values, info) => {
+
+                                            const { formattedValue, value } = values;
+
+                                            return setState({
+                                                ...state,
+                                                valorBaseComissao: value
+                                            })
+
+                                        }} />
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
 
                 </div>
 
