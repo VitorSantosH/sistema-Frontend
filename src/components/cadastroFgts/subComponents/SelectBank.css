@@ -32,7 +32,7 @@
 
 .containerSelect .selectBox i {
 
-    margin: 5px;
+    padding: 0.5rem;
 }
 
 .css-b62m3t-container {
@@ -78,7 +78,7 @@
     }
 
     .css-b62m3t-container {
-        width: 68vw;
+        width: 67vw;
         max-width: none;
     }
 

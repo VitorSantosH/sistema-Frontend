@@ -10,6 +10,8 @@ import {
 
 import Home from "./components/home/Home";
 import CadastroFgts from './components/cadastroFgts/CadastroFgts';
+import CadastroConsignado from "./components/cadastroConsignado/CadastroConsignado";
+import EsteiraProposta from "./components/esteiraProposta/EsteiraProposta";
 
 const Rotas = () => {
 
@@ -18,8 +20,9 @@ const Rotas = () => {
         <Router>
             <Routes>
 
-
-                <Route exact path="/cadastro" element={<CadastroFgts />} />
+                <Route exact path="/esteira-proposta" element={<EsteiraProposta />} />
+                <Route exact path="/cadastro-CONSIGNADO" element={<CadastroConsignado />} />
+                <Route exact path="/cadastro-FGTS" element={<CadastroFgts />} />
                 <Route exact path="/" element={<Home />} />
                 <Route
                     path="*"

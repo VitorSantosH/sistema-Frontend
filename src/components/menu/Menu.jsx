@@ -10,11 +10,13 @@ import { useDispatch, useSelector } from "react-redux";
 const Menu = () => {
 
     let user = {
-        name: 'teste', 
+        name: 'teste',
         role: 'admin'
     }
     const [state, setState] = useState({
-        showMobileMenu: false
+        showMobileMenu: false,
+        showDrop: false,
+        showDropFgts: false
     })
     const navigate = useNavigate();
     //user = JSON.parse(sessionStorage.getItem('user'));
@@ -39,37 +41,145 @@ const Menu = () => {
                     <span>Início</span>
                 </div>
 
-                <div
-                    className="homeBtn"
-                    onClick={e => {
-                        return navigate('/cadastro')
-                    }}
-                >
-                    <i className="fa fa-file-text-o "></i>
-                    <span>
-                        Cadastro
-                    </span>
-                </div>
-
-
             </div>
 
             <div className="menuArea2">
-                <div
-                    className="homeBtn"
-                    onClick={e => {
-                        return navigate('/user')
-                    }}
-                >
-                    <i className="fa fa-user">
 
-                    </i>
-                    <span>
-                        {
-                            user.name
-                        }
+                <div className="custonDropContainer"
+
+                >
+
+
+
+                    <span
+
+                        className="homeBtn"
+                        onClick={e => {
+
+                            return setState({
+                                ...state,
+                                showDrop: !state.showDrop
+                            })
+                        }}
+                    >
+                        <i className="fa fa-file-text-o "></i>
+                        <span>
+                            Cadastro
+                        </span>
                     </span>
+
+                    <div
+                        className={state.showDrop ? "custonDropDown showDrop" : "custonDropDown"}
+                    >
+
+                        <section
+                        >
+                            <span
+                                onClick={e => {
+                                    return setState({
+                                        ...state,
+                                        showDropFgts: !state.showDropFgts
+                                    })
+                                }}
+                            >
+                                Cadastro
+                                <i
+                                    className={state.showDropFgts ? "fa fa-arrow-down" : "fa fa-arrow-right"}
+                                ></i>
+                            </span>
+
+                            <section
+                                className={state.showDropFgts ? 'showDropFgts activeFgts' : 'showDropFgts'}
+                                onClick={e => {
+                                    return navigate('/cadastro-FGTS')
+                                }}
+                            >
+                                FGTS
+                            </section>
+
+                            <section
+                                className={state.showDropFgts ? 'showDropFgts activeFgts' : 'showDropFgts'}
+                                onClick={e => {
+                                    return navigate('/cadastro-CONSIGNADO')
+                                }}
+                            >
+                                CONSIGNADO
+                            </section>
+
+                        </section>
+
+
+                        <section
+                        >
+                            <span
+                                onClick={e => {
+                                    return navigate('/esteira-proposta')
+                                }}
+                            >
+
+                                Esteira Proposta
+
+                            </span>
+
+
+                        </section>
+
+
+                        
+                        <section
+                        >
+                            <span
+                                onClick={e => {
+                                    return navigate('/esteira-pos-venda')
+                                }}
+                            >
+
+                                Esteira Pós-venda
+
+                            </span>
+
+
+                        </section>
+ 
+                           
+                        <section
+                        >
+                            <span
+                                onClick={e => {
+                                    return navigate('/esteira-contestacao')
+                                }}
+                            >
+
+                                Esteira Contestação
+
+                            </span>
+
+
+                        </section>
+
+
+                           
+                        <section
+                        >
+                            <span
+                                onClick={e => {
+                                    return navigate('/esteira-clientes')
+                                }}
+                            >
+
+                                Clientes
+                            </span>
+
+
+                        </section>
+
+
+                    </div>
+
                 </div>
+
+
+
 
                 {user.role === "admin" && (
                     <div
@@ -86,6 +196,24 @@ const Menu = () => {
                         </span>
                     </div>
                 )}
+
+                <div
+                    className="homeBtn"
+                    onClick={e => {
+                        return navigate('/user')
+                    }}
+                >
+                    <i className="fa fa-user">
+
+                    </i>
+                    <span>
+                        {
+                            user.name
+                        }
+                    </span>
+                </div>
+
+
 
                 <div
                     className="homeBtn"
@@ -134,7 +262,7 @@ const Menu = () => {
                 <div
                     className="homeBtn"
                     onClick={e => {
-                        return navigate('/cadastro')
+                        return navigate('/cadastro-FGTS')
                     }}
                 >
                     <span>

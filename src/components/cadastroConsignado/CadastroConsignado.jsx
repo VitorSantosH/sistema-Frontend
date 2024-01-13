@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Select from 'react-select';
-import './CadastroFgts.css';
+import './CadastroConsignado.css';
 import NumberFormat from 'react-number-format'
 import axios from 'axios';
 import swal from 'sweetalert2'
@@ -18,11 +18,11 @@ import {
     prazoComissao,
 
 
-} from './subComponents/ufs_orgEmissor.jsx';
-import SelectBank from "./subComponents/SelectBank.jsx";
+} from '../cadastroFgts/subComponents/ufs_orgEmissor.jsx';
+import SelectBank from "../cadastroFgts/subComponents/SelectBank.jsx"
 
 
-const CadastroFgts = () => {
+const CadastroConsignado = () => {
 
     const [state, setState] = useState({
         name: '',
@@ -281,7 +281,7 @@ const CadastroFgts = () => {
 
                 <div className="boxtitle">
                     <h2>
-                        Proposta FGTS
+                        Proposta emprestimo consignado
                     </h2>
                 </div>
 
@@ -1794,4 +1794,4 @@ const CadastroFgts = () => {
 }
 
 
-export default CadastroFgts;
+export default CadastroConsignado;
