@@ -1,0 +1,89 @@
+.esteiraProposta {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    padding: 1rem 2rem;
+    box-sizing: border-box;
+
+}
+
+.pesquisa {
+
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    box-shadow: 10px 0px 8px 0px rgba(0, 0, 0, 0.10);
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.pesquisa .boxtitle {
+    color: rgb(39, 39, 39);
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    box-sizing: border-box;
+}
+
+.pesquisa .boxtitle h2 {
+    font-size: 1.8rem;
+    margin: 0;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.inputContainer {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    align-items: center;
+}
+
+.inputContainer .inputItem {
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-weight: 500;
+    line-height: 1.2;
+    color: rgb(39, 39, 39);
+    background-color: #fff;
+    margin: 1rem 0;
+}
+
+.inputContainer .inputItem input {
+
+    color: rgb(39, 39, 39);
+    background-color: #fff;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    color: #212529;
+    transition: border-color 0.2s;
+    transition: all 0.3ms;
+    padding-left: 1rem;
+    font-size: 0.9rem;
+    border-color: #ced4da;
+    box-shadow: 0.1em 0.1em 0.1em #ced4da;
+    border: 2px solid #ced4da;
+    border-radius: 4px;
+    height: 2.35rem;
+    line-height: 1.5;
+    font-size: 1rem;
+    margin:10px 0;
+}
+
+.inputContainer .inputItem  input:focus {
+    outline: none;
+}
+
+.inputContainer .inputItem input:focus-within, .inputContainer .inputItem  input:active {
+    outline: none;
+    border-color: #17a2b8;
+    border: solid 2px #17a2b8;
+    box-shadow: 0.1em 0.1em 0.1em #17a2b8;
+    transition: border-color 0.2s;
+    transition: all 0.3ms;
+}

@@ -4,7 +4,8 @@ import {createSlice, configureStore} from '@reduxjs/toolkit';
 const stateRedux = createSlice({
     name: "stateRedux",
     initialState: {
-        count: 0
+        count: 0,
+        propostas: []
     }, 
     reducers: {
 
@@ -15,6 +16,9 @@ const stateRedux = createSlice({
         decremented: state => {
             state.count -= 1
         },
+        propostas: (state, action) => {
+            state.propostas = action.payload
+        }
 
     }
 
@@ -24,6 +28,6 @@ const store = configureStore({
     reducer: stateRedux.reducer
 })
 
-export const {incremented, decremented} = stateRedux.actions;
+export const {incremented, decremented, propostas} = stateRedux.actions;
 
 export default store;

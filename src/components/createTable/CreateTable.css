@@ -1,0 +1,38 @@
+.tabela {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 10px 0px 8px 0px rgba(0, 0, 0, 0.10);
+    border: solid rgba(73, 73, 73, 0.598);
+
+}
+
+.tabela th, .tabela td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+
+.tabela th {
+    background-color: rgb(18, 34, 86);
+    color: #fff;
+}
+
+.tabela tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.status-contrato-pago {
+    color: green;
+    /* Cor verde para contrato pago */
+}
+
+.status-autorizado {
+    color: blue;
+    /* Cor azul para status autorizado */
+}
+
+.status-cancelado {
+    color: red;
+}
