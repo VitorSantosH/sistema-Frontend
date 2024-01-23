@@ -42,10 +42,12 @@ const EsteiraProposta = (props) => {
             cpf: state.cpfValue
         }
         const response = await connect.getPropostas({ ...params })
+        console.log(response)
+        const data = response.data.propostas
 
         return setState({
             ...state,
-            dadosTabela: converterDadosParaAcessos(response.data.propostas)
+            dadosTabela: converterDadosParaAcessos(data)
         })
     }
 
