@@ -8,6 +8,8 @@ import './Home.css';
 import { useDispatch, useSelector } from "react-redux";
 import Menu from "../menu/Menu";
 
+// api 
+import api from "../../config/api";
 
 const Home = () => {
 
@@ -16,39 +18,100 @@ const Home = () => {
         return state.count;
     });
 
-    const state = useState({ 
+    const state = useState({
 
     });
-   
+
     const countRedux = useSelector(state => {
-  
-      return state.count
-      
+
+        return state.count
+
     });
+
+    const [selectedFile, setSelectedFile] = useState(null);
+
+    const handleFileChange = (event) => {
+
+        const file = event.target.files[0];
+
+        // Verifica se um arquivo foi selecionado
+        if (file) {
+            // Verifica a extensão do arquivo
+            const isXLSX = file.name.endsWith('.csv');
+
+            if (isXLSX) {
+                // Armazena o arquivo selecionado
+                setSelectedFile(file);
+            } else {
+                // Exibe uma mensagem de erro se o arquivo não for um XLSX
+                alert('Por favor, selecione um arquivo XLSX válido.');
+            }
+        }
+    };
+    const handleUpload = async () => {
+        if (selectedFile) {
+            try {
+                const formData = new FormData();
+                formData.append('file', selectedFile);
+
+                const config = {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                };
+
+                const response = await api.post('upload-xls', formData, config);
+
+                // Lide com a resposta do servidor conforme necessário
+                console.log('Resposta do servidor:', response.data);
+            } catch (error) {
+                console.error('Erro ao fazer upload:', error);
+            }
+        } else {
+            alert('Por favor, selecione um arquivo antes de fazer o upload.');
+        }
+    };
+
+
 
 
 
     return (
-     <>
+        <>
 
-        <Menu/>
-        <div className="home">
-            <h1>
+            <Menu />
+            <div className="home">
+                <h1>
 
-                Home
+                    Home
 
-                <span>
-                    {' '}
-                </span>
+                    <span>
+                        {' '}
+                    </span>
 
-                <span>
-                    {countRedux}
-                </span>
-                
-            </h1>
-        </div>
-     
-     </>
+                    <span>
+                        {countRedux}
+                    </span>
+
+                </h1>
+
+
+                <div>
+                    <input
+                        type="file"
+                        accept=".csv"
+                        onChange={handleFileChange}
+                    />
+                    {selectedFile && (
+                        <>
+                            <p>Arquivo selecionado: {selectedFile.name}</p>
+                            <button onClick={handleUpload}>Fazer Upload</button>
+                        </>
+                    )}
+                </div>
+            </div>
+
+        </>
     )
 
 }
