@@ -57,6 +57,33 @@ const connect = {
 
     },
 
+    getPropostasFacta: async (props) => {
+
+
+        const params = {
+            ...props
+        };
+
+        const headers = {
+            // Adicione este cabeçalho se necessário
+            // Authorization: `${sessionStorage.getItem('authToken')}`,
+        };
+
+
+        const response = await api.get('/propostas', { params, headers })
+            .then(res => {
+
+                return res
+
+            }).catch(err => {
+
+                return err.response
+            })
+
+        return response
+
+    },
+
     getCliente: async (props) => {
 
         const params = {

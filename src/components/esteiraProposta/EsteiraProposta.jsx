@@ -42,8 +42,8 @@ const EsteiraProposta = (props) => {
             cpf: state.cpfValue
         }
         const response = await connect.getPropostas({ ...params })
-        console.log(response)
-        const data = response.data.propostas
+      //  console.log(response)
+        const data = response.data
 
         return setState({
             ...state,
@@ -68,16 +68,18 @@ const EsteiraProposta = (props) => {
 
     const converterDadosParaAcessos = (dados) => {
         return dados.map((item) => {
+           // console.log(item)
             return {
-                ID: item.proposta,
-                CPF: item.cpf,
-                CLIENTE: item.cliente,
-                TELEFONE: '',
-                'UNID. NEGÓCIOS': item.unid_negocios,
-                'CADASTRADO POR': item.login_corretor,
-                'Nº CONTRATO': item.numero_contrato,
-                COMISSAO: item.comissao,
-                STATUS: item.status_proposta,
+                ID: item.ID_PROPOSTA,
+                CPF: item.CPF,
+                CLIENTE: item.CLIENTE,
+                TELEFONE: item.TELEFONE,
+                'UNID. NEGÓCIOS': item.UNIDADE_NEGOCIOS,
+                'CADASTRADO POR': item.AGENTE,
+               // 'Nº CONTRATO': item.numero_contrato,
+                COMISSAO: item.TABELA_COMISSAO,
+                STATUS: item.STATUS_PROPOSTA,
+                SUPERVISOR: item.SUPERVISOR
                 // Adicione mais campos conforme necessário
             };
         });
