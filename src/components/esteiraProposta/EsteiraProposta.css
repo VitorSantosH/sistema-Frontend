@@ -50,7 +50,8 @@
     line-height: 1.2;
     color: rgb(39, 39, 39);
     background-color: #fff;
-    margin: 1rem 0;
+    margin: 1rem 1rem;
+
 }
 
 .inputContainer .inputItem input {
@@ -73,6 +74,7 @@
     line-height: 1.5;
     font-size: 1rem;
     margin:10px 0;
+    box-sizing: border-box;
 }
 
 .inputContainer .inputItem  input:focus {

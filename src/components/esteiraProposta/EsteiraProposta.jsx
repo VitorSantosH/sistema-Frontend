@@ -13,6 +13,7 @@ const EsteiraProposta = (props) => {
 
     const [state, setState] = useState({
         cpfValue: '',
+        id: '',
         dadosTabela: undefined,
 
 
@@ -39,10 +40,11 @@ const EsteiraProposta = (props) => {
 
         console.log('aqui')
         const params = {
-            cpf: state.cpfValue
+            CPF: state.cpfValue,
+            NUMERO_ACOMPANHAMENTO: state.NUMERO_ACOMPANHAMENTO
         }
         const response = await connect.getPropostas({ ...params })
-      //  console.log(response)
+        console.log(response)
         const data = response.data
 
         return setState({
@@ -57,7 +59,7 @@ const EsteiraProposta = (props) => {
         { Header: 'CPF', accessor: 'CPF' },
         { Header: 'CLIENTE', accessor: 'CLIENTE' },
         { Header: 'TELEFONE', accessor: 'TELEFONE' },
-        { Header: 'UNID. NEGÓCIOS', accessor: 'UNID. NEGOCIOS' },
+        { Header: 'UNID. NEGÓCIOS', accessor: 'unidade' },
         { Header: 'CADASTRADO POR', accessor: 'CADASTRADO POR' },
         { Header: 'Nº CONTRATO', accessor: 'Nº CONTRATO' },
         { Header: 'COMISSÂO', accessor: 'COMISSAO' },
@@ -68,15 +70,15 @@ const EsteiraProposta = (props) => {
 
     const converterDadosParaAcessos = (dados) => {
         return dados.map((item) => {
-           // console.log(item)
+            // console.log(item)
             return {
                 ID: item.ID_PROPOSTA,
                 CPF: item.CPF,
                 CLIENTE: item.CLIENTE,
                 TELEFONE: item.TELEFONE,
-                'UNID. NEGÓCIOS': item.UNIDADE_NEGOCIOS,
+                unidade: item.UNIDADE_NEGOCIOS,
                 'CADASTRADO POR': item.AGENTE,
-               // 'Nº CONTRATO': item.numero_contrato,
+                'Nº CONTRATO': item.NUMERO_ACOMPANHAMENTO,
                 COMISSAO: item.TABELA_COMISSAO,
                 STATUS: item.STATUS_PROPOSTA,
                 SUPERVISOR: item.SUPERVISOR
@@ -165,7 +167,52 @@ const EsteiraProposta = (props) => {
 
                             </section>
                         </div>
+
+
+                        <div className="inputItem">
+
+                            <label htmlFor="cpf">
+                                Nº ACOMPANHAMENTO
+                            </label>
+
+                            <section className="pt2">
+
+                                <div className="cpf">
+
+                                    <NumberFormat
+                                        format="########"
+                                        className='inputTel'
+                                        aria-describedby=""
+                                        placeholder="00000000"
+                                        value={state.NUMERO_ACOMPANHAMENTO || ""}
+                                        //  style={{ 'borderColor': stateCadLoja.stateEmailStyle ? '' : '#EE3B3B' }}
+                                        onValueChange={(values, info) => {
+                                            const { formattedValue, value } = values;
+
+                                            return setState({
+                                                ...state,
+                                                NUMERO_ACOMPANHAMENTO: value
+                                            })
+
+                                        }}
+
+                                        onKeyPress={e => {
+
+                                            if (e.key === "Enter") {
+
+                                                return getFgtsStatus();
+                                            }
+                                        }}
+
+
+                                    />
+                                </div>
+
+                            </section>
+                        </div>
                     </div>
+
+
 
 
                     <div

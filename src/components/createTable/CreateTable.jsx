@@ -4,7 +4,7 @@ import './CreateTable.css';
 
 
 const CreateTable = ({ colunas, dados }) => {
-  console.log(dados)
+  //console.log(dados)
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns: colunas, data: dados });
   
   

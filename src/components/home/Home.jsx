@@ -37,7 +37,7 @@ const Home = () => {
         // Verifica se um arquivo foi selecionado
         if (file) {
             // Verifica a extensão do arquivo
-            const isXLSX = file.name.endsWith('.csv');
+            const isXLSX = file.name.endsWith('.xlsx');
 
             if (isXLSX) {
                 // Armazena o arquivo selecionado
@@ -99,7 +99,7 @@ const Home = () => {
                 <div>
                     <input
                         type="file"
-                        accept=".csv"
+                        accept=".xlsx"
                         onChange={handleFileChange}
                     />
                     {selectedFile && (
