@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import connect from "../../config/connect";
 import Swal from "sweetalert2";
 
 
+
+
+//redux
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from '../../redux/redux.js';
 
 //assets 
 //import logo from '../../assets/maisSaqueLogoAz.jpg'
@@ -19,6 +24,14 @@ const Login = () => {
         loading: false
     });
 
+    const dispatch = useDispatch();
+    const store = useSelector(state => {
+
+        return state.user;
+
+    });
+
+  
     const navigate = useNavigate();
 
     async function login() {
@@ -53,7 +66,12 @@ const Login = () => {
                 ...state,
                 loading: false
             })
-            sessionStorage.setItem('user', JSON.stringify(user.data))
+            sessionStorage.setItem('user', JSON.stringify(user.data));
+
+      
+
+            dispatch(setUser(JSON.stringify(user.data)))
+
             return navigate('/home')
         }
 

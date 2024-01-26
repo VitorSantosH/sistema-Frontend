@@ -5,7 +5,8 @@ const stateRedux = createSlice({
     name: "stateRedux",
     initialState: {
         count: 0,
-        propostas: []
+        user: {},
+        propostas: [],
     }, 
     reducers: {
 
@@ -18,7 +19,11 @@ const stateRedux = createSlice({
         },
         propostas: (state, action) => {
             state.propostas = action.payload
+        },
+        setUser: (state, action) => {
+            state.user = JSON.parse(action.payload)
         }
+
 
     }
 
@@ -28,6 +33,6 @@ const store = configureStore({
     reducer: stateRedux.reducer
 })
 
-export const {incremented, decremented, propostas} = stateRedux.actions;
+export const {incremented, decremented, propostas, setUser} = stateRedux.actions;
 
 export default store;
