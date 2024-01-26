@@ -10,8 +10,8 @@ const stateRedux = createSlice({
     reducers: {
 
         incremented: state => {
-            
             state.count += 1
+
         },
         decremented: state => {
             state.count -= 1

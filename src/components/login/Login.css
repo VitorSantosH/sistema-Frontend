@@ -1,0 +1,201 @@
+.Login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: rgb(18, 34, 86);
+    color: rgb(18, 18, 20);
+    min-height: 100vh;
+    overflow: scroll;
+    box-sizing: border-box;
+}
+
+.containerLogin {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.title, .console {
+
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 30vw;
+    min-width: 300px;
+    max-width: 480px;
+    box-sizing: border-box;
+}
+
+
+.console {
+    background-color: #fff;
+    box-sizing: border-box;
+    box-shadow: 10px 0px 8px 0px rgba(0, 0, 0, 0.10);
+    border-radius: 8px;
+    padding: 2rem 2rem;
+}
+
+.console input {
+    box-sizing: border-box;
+    width: 100%;
+    height: 50px;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 0px 1em 0px 1em;
+    border-radius: 5px;
+    color: rgb(18, 18, 20) !important;
+    background-color: transparent;
+    border: solid 1px transparent;
+    font-weight: 550;
+    line-height: 1.5rem;
+}
+
+.email, .password {
+
+    color: rgb(18, 18, 20);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+    padding: 0px 1em 0px 1em;
+    outline: 0px;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+    border: solid 1px transparent;
+    width: 100%;
+    transition: all 0.3ms;
+    border-color: #007bff;
+    border: solid 2px rgb(198, 195, 207);
+    box-shadow: 0 0 4px rgb(198, 195, 207);
+}
+
+.console i {
+    transition: color 0.2s;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.console i:focus-within {
+    color: rgb(18, 34, 86);
+}
+
+.password input:focus, .email input:focus, .password input:active, .email input:active {
+    outline: none;
+
+}
+
+.password:focus-within, .email:focus-within, .password:active, .email:active {
+    outline: none;
+    border-color: #007bff;
+    border: solid 2px rgb(18, 34, 86);
+    box-shadow: 0 0 8px rgb(18, 34, 86);
+}
+
+.btnPadrão {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    height: 50px;
+    font-weight: 500;
+    font-size: 16px;
+    color: rgb(255, 255, 255);
+    padding: 0px 1em 0px 1em;
+    border-radius: 5px;
+    background-color: rgb(237, 141, 45);
+    border: solid 1px transparent;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.btnPadrão:hover {
+
+    filter: brightness(1.25);
+    color: white;
+}
+
+.btnPadrão:active {
+    background-color: rgb(244, 130, 15);
+    color: white;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+
+.registrar strong {
+
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+#loading-login {
+    border: 6px solid #e5e5e5;
+    border-top-color: rgb(229, 229, 229);
+    border-radius: 50%;
+    border-top-color: rgb(99, 49, 218);
+    height: 1rem;
+    width: 1rem;
+    animation: loading-bar-spinner 400ms linear infinite;
+}
+
+.title h2 {
+    font-size: 2rem;
+}
+
+.title img {
+    height: auto;
+    width: 40vw;
+    min-width: 350px;
+    max-width: 480px;
+}
+
+@media only screen and (max-width: 850px) {
+    .title, .console {
+        width: 90vw;
+        min-width: 350px;
+        max-width: 480px;
+        padding: 2rem;
+
+    }
+
+    .Login {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .title img {
+        max-width: 70vw;
+
+    }
+}
+
+@media only screen and (max-width: 850px) {
+
+    .title, .console {
+        width: 90vw;
+        min-width: 350px;
+        max-width: 480px;
+        padding: 2rem;
+
+    }
+
+    .Login {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .title img {
+        max-width: 70vw;
+
+    }
+}

@@ -6,6 +6,9 @@ import './Home.css';
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
+import {incremented, decremented, } from '../../redux/redux.js';
+
+
 import Menu from "../menu/Menu";
 
 // api 
@@ -15,7 +18,9 @@ const Home = () => {
 
     const dispatch = useDispatch();
     const store = useSelector(state => {
-        return state.count;
+
+        return state;
+
     });
 
     const state = useState({
@@ -81,7 +86,14 @@ const Home = () => {
 
             <Menu />
             <div className="home">
-                <h1>
+                <h1 
+                    onClick={e => {
+
+                        console.log(store)
+                        console.log('aqui')
+                        return dispatch(decremented())
+                    }}
+                >
 
                     Home
 
