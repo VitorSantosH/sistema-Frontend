@@ -128,20 +128,20 @@ const Home = () => {
                     }}
                 >
 
-                    Home
-
-                    <span>
-                        {' '}
-                    </span>
-
-                    <span>
+                  {
+                    /**
+                     * 
+                     * <span>
                         {countRedux}
-                    </span>
+                       </span>
 
+                     * 
+                     */
+                  }  
                     {userRedux && (
 
                         <span>
-                            {userRedux.name}
+                           Bem-vindo, {userRedux.name}
                         </span>
                     )}
 

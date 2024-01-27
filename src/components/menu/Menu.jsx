@@ -5,7 +5,7 @@ import "./Menu.css";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
-
+import { incremented, decremented, setUser } from '../../redux/redux.js';
 
 const Menu = () => {
 
@@ -13,6 +13,10 @@ const Menu = () => {
         name: 'teste',
         role: 'admin'
     }
+    const dispatch = useDispatch();
+    const userRedux = useSelector(state => {
+        return state.user;
+    });
     const [state, setState] = useState({
         showMobileMenu: false,
         showDrop: false,
@@ -208,7 +212,7 @@ const Menu = () => {
                     </i>
                     <span>
                         {
-                            user.name
+                            userRedux.name
                         }
                     </span>
                 </div>
@@ -251,7 +255,7 @@ const Menu = () => {
 
                     <span>
                         {
-                            user.name
+                            userRedux.name
                         }
                     </span>
                     <i className="fa fa-user">
