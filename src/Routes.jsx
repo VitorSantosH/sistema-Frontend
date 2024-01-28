@@ -13,6 +13,7 @@ import CadastroFgts from './components/cadastroFgts/CadastroFgts';
 import CadastroConsignado from "./components/cadastroConsignado/CadastroConsignado";
 import EsteiraProposta from "./components/esteiraProposta/EsteiraProposta";
 import Login from "./components/login/Login";
+import AdicionarXlsx from "./components/uploadXlsx/AdicionarXlsx";
 
 const Rotas = () => {
 
@@ -20,7 +21,7 @@ const Rotas = () => {
 
         <Router>
             <Routes>
-
+                <Route exact path="/AdicionarXlsx" element={<AdicionarXlsx />} />
                 <Route exact path="/esteira-proposta" element={<EsteiraProposta />} />
                 <Route exact path="/cadastro-CONSIGNADO" element={<CadastroConsignado />} />
                 <Route exact path="/cadastro-FGTS" element={<CadastroFgts />} />

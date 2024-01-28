@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './EsteiraProposta.css';
 import NumberFormat from 'react-number-format'
 import Swal from 'sweetalert2'
@@ -10,18 +10,29 @@ import CreateTable from '../createTable/CreateTable.jsx'
 
 const EsteiraProposta = (props) => {
 
-
+    const cpfRegex = /^\d{11}$/;
     const [state, setState] = useState({
         cpfValue: '',
         id: '',
-        dadosTabela: undefined,
-
-
+        filtro: "",
+        loading: false
     })
-    const cpfRegex = /^\d{11}$/;
+
+    const [stateDados, setStateDados] = useState({
+        dadosTabela: undefined,
+        dadosFiltrados: undefined,
+        loadingFiltro: false
+    })
+
+    useEffect(() => {
+
+
+    }, [state.filtro,])
+
 
 
     function completarComZeros(numero, tamanhoMinimo) {
+
         // Converte o número para uma string
         let numeroString = numero.toString();
 
@@ -38,6 +49,11 @@ const EsteiraProposta = (props) => {
 
     async function getFgtsStatus() {
 
+        setState(prevState => ({
+            ...prevState,
+            loading: true
+        }));
+
         console.log('aqui')
         const params = {
             CPF: state.cpfValue,
@@ -47,9 +63,14 @@ const EsteiraProposta = (props) => {
         console.log(response)
         const data = response.data
 
-        return setState({
+        setState({
             ...state,
-            dadosTabela: converterDadosParaAcessos(data)
+            loading: false
+        })
+
+        return setStateDados({
+            ...state,
+            dadosTabela: converterDadosParaAcessos(data),
         })
     }
 
@@ -87,6 +108,49 @@ const EsteiraProposta = (props) => {
         });
     };
 
+    const filtrarDados = (e) => {
+
+        setStateDados(prevState => ({
+            ...prevState,
+            loadingFiltro: true,
+            
+        }))
+
+        //filtrar dados
+        if (e.target.value == "") {
+            console.log('aqui')
+            setState(prevState => ({
+                ...prevState,
+                filtro: e.target.value,
+
+            }))
+
+            return setStateDados(prevState => ({
+                ...prevState,
+                dadosFiltrados: stateDados.dadosTabela,
+                loadingFiltro: false
+            }))
+        }
+
+        console.log(stateDados)
+        if (stateDados.dadosTabela && state.filtro) {
+
+            const filtroLowerCase = state.filtro.toLowerCase();
+            const dadosFiltrados = stateDados.dadosTabela.filter(proposta => {
+
+                if (proposta.STATUS.toLowerCase().includes(filtroLowerCase) ||
+                    proposta.CLIENTE.toLowerCase().includes(filtroLowerCase) ||
+                    proposta.CPF.toString().toLowerCase().includes(filtroLowerCase)
+                ) return true
+            });
+
+            return setStateDados(prevState => ({
+                ...prevState,
+                dadosFiltrados: dadosFiltrados,
+                loadingFiltro: false
+            }));
+        }
+    }
 
     return (
         <>
@@ -98,8 +162,12 @@ const EsteiraProposta = (props) => {
                         <h2>
                             Lista de propostas
                         </h2>
+                    </div>
 
-
+                    <div className="boxtitle">
+                        <h4>
+                            Consulta banco de dados/facta
+                        </h4>
                     </div>
 
                     <div className="inputContainer">
@@ -213,47 +281,100 @@ const EsteiraProposta = (props) => {
                     </div>
 
 
-
-
                     <div
-
                         className="btn"
                         onClick={e => {
-
-                            if (!cpfRegex.test(state.cpfValue)) {
-
-                                return Swal.fire({
-                                    icon: "error",
-                                    title: 'Erro',
-                                    text: 'Digite o cpf corretamente',
-                                })
-
-                            }
-
-
-
                             return getFgtsStatus();
-
                         }}
 
                     >
                         {!state.loading && (
-                            <span>
-                                Consultar
-                            </span>
+                            <div className="btnConsultar">
+                                <span>
+                                    Consultar
+                                </span>
+                            </div>
                         )}
                         {state.loading && (
-                            <div id="loading-bar-spinner" className="spinner">
+                            <div className="contendSpinner">
+                                <div id="loading-login" className="spinner">
+                                </div>
                             </div>
                         )}
                     </div>
 
+                    <div className="boxtitle">
+                        <h4>
+                            filtros
+                        </h4>
+                    </div>
+
+                    <div className="inputContainer">
+
+                        <div className="inputItem">
+
+                            <label htmlFor="cpf">
+                                Status | CPF | Nome
+                            </label>
+
+                            <section className="pt2">
+
+                                <div className="cpf">
+                                    <input
+                                        type="text"
+                                        name=""
+                                        id=""
+                                        value={state.filtro || ""}
+                                        onChange={e => {
+
+                                            if(e.target.value == "") {
+                                                filtrarDados(e);
+                                            }
+                                            
+                                            console.log(state)
+                                            return setState({
+                                                ...state,
+                                                filtro: e.target.value
+                                            });
+
+                                        }}
+                                        onKeyPress={e => {
+
+                                            if (e.key === "Enter") {
+
+                                                return filtrarDados(e);
+                                            }
+                                        }}
+                                    />
+
+                                    {stateDados.loading && (
+                                        <div className="">
+                                            <div id="loading-login" className="spinner">
+                                            </div>
+                                        </div>
+                                    )}
+
+
+                                </div>
+
+                                <span>
+                                    Aperte enter para aplicar o filtro
+                                </span>
+
+                            </section>
+
+                        </div>
+                    </div>
+
+
+
                 </div>
 
 
-                {state.dadosTabela && (
-                    <CreateTable colunas={colunas} dados={state.dadosTabela} />
+                {stateDados.dadosTabela && (
+                    <CreateTable colunas={colunas} dados={stateDados.dadosFiltrados || stateDados.dadosTabela} />
                 )}
+
 
 
             </div>

@@ -87,9 +87,9 @@ const connect = {
     getCliente: async (props) => {
 
         const params = {
-           cpf: props.cpf
+            cpf: props.cpf
         };
-        
+
         const headers = {
             // Adicione este cabeçalho se necessário
             // Authorization: `${sessionStorage.getItem('authToken')}`,
@@ -106,6 +106,29 @@ const connect = {
 
         return response
 
+    },
+
+    editarProposta: async (props) => {
+
+        const response = await api.post('/editeProposta', {
+
+            ...props
+        
+        }, {
+            headers: {
+                //  'Authorization': `${sessionStorage.getItem('authToken')}`,
+            },
+        })
+            .then(res => {
+
+                return res
+
+            }).catch(err => {
+
+                return err.response
+            })
+
+        return response
     }
 
 

@@ -89,3 +89,46 @@
     transition: border-color 0.2s;
     transition: all 0.3ms;
 }
+#loading-login {
+    border: 6px solid #e5e5e5;
+    border-radius: 50%;
+    height: 1rem;
+    width: 1rem;
+    animation: loading-bar-spinner 400ms linear infinite;
+}
+.contendSpinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+@keyframes loading-bar-spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.btnConsultar {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.btnConsultar span {
+    background-color: rgb(237, 141, 45);
+    color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Adiciona uma transição suave */
+}
+
+.btnConsultar span:hover {
+    background-color: rgb(207, 110, 30); /* Cor alterada no hover */
+}
+
+.btnConsultar span:active {
+    background-color: rgb(187, 100, 25); /* Cor alterada durante o clique */
+}

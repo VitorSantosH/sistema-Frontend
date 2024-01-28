@@ -31,7 +31,7 @@ const Login = () => {
 
     });
 
-  
+
     const navigate = useNavigate();
 
     async function login() {
@@ -68,7 +68,7 @@ const Login = () => {
             })
             sessionStorage.setItem('user', JSON.stringify(user.data));
 
-      
+
 
             dispatch(setUser(JSON.stringify(user.data)))
 
@@ -81,7 +81,16 @@ const Login = () => {
         <div className="Login">
 
             <div className="title">
-                <img src={logo} alt="" />
+                {
+                    /**
+                     *   <img src={logo} alt="" />
+                     */
+                }
+
+                <h1>
+                    Siscorban
+                </h1>
+
             </div>
 
             <div className="console">
