@@ -113,7 +113,7 @@ const connect = {
         const response = await api.post('/editeProposta', {
 
             ...props
-        
+
         }, {
             headers: {
                 //  'Authorization': `${sessionStorage.getItem('authToken')}`,
@@ -129,6 +129,30 @@ const connect = {
             })
 
         return response
+    },
+
+    postProposta: async (props) => {
+
+        const response = await api.post('/proposta/crete', {
+
+            ...props
+
+        }, {
+            headers: {
+                //  'Authorization': `${sessionStorage.getItem('authToken')}`,
+            },
+        })
+            .then(res => {
+
+                return res
+
+            }).catch(err => {
+
+                return err.response
+            })
+
+        return response
+
     }
 
 

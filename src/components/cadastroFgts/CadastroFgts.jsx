@@ -3,7 +3,7 @@ import Select from 'react-select';
 import './CadastroFgts.css';
 import NumberFormat from 'react-number-format'
 import axios from 'axios';
-import swal from 'sweetalert2'
+import connect from "../../config/connect.jsx";
 
 //components 
 import Menu from "../menu/Menu";
@@ -20,6 +20,7 @@ import {
 
 } from './subComponents/ufs_orgEmissor.jsx';
 import SelectBank from "./subComponents/SelectBank.jsx";
+import Swal from "sweetalert2";
 
 
 const CadastroFgts = () => {
@@ -73,6 +74,7 @@ const CadastroFgts = () => {
         numeroAcompanhamento: '',
         linkFinanceira: '',
         observacao: '',
+        loading: false
 
 
     })
@@ -113,10 +115,43 @@ const CadastroFgts = () => {
 
         await axios.get(`https://viacep.com.br/ws/${cep}/json/`)
             .then(res => {
-                return console.log(res)
+                const {
+
+                    bairro,
+                    ddd,
+                    localidade,
+                    logradouro,
+                    uf
+
+                } = res.data
+                console.log(res)
+
+                if (res.data.erro) {
+                    console.log(err)
+                    return Swal.fire({
+                        title: "Erro",
+                        icon: "error",
+                        text: "Erro ao localizar cep"
+                    })
+                }
+
+                return setState(prevState => ({
+                    ...prevState,
+                    bairro: bairro,
+                    estadoEndereco: uf,
+                    endereco: logradouro,
+                    cidade: localidade
+                }))
+
             })
             .catch(err => {
-                return console.log(err)
+
+                console.log(err)
+                return Swal.fire({
+                    title: "Erro",
+                    icon: "error",
+                    text: "Erro ao localizar cep"
+                })
             })
 
 
@@ -138,6 +173,25 @@ const CadastroFgts = () => {
             ...state,
             tipoFormalizacao: e.target.value
         })
+    }
+
+    async function cadastrarProposta() {
+
+        setState(prevState => ({
+            ...prevState,
+            loading: true
+        }))
+
+        console.log(state)
+        const response = await connect.postProposta(state)
+
+        console.log(response)
+
+        return setState(prevState => ({
+            ...prevState,
+            loading: false
+        }))
+
     }
 
     function handleMetodoPgt(e) {
@@ -203,7 +257,6 @@ const CadastroFgts = () => {
         })
 
     }
-
 
     function setBancoFinanciamento(e) {
 
@@ -836,7 +889,7 @@ const CadastroFgts = () => {
                                                     return getCEP(state.cep)
 
                                                 } else {
-                                                    return swal.fire({
+                                                    return Swal.fire({
                                                         title: 'ERRO',
                                                         icon: "error",
                                                         text: "Digite o cep corretamente"
@@ -855,7 +908,7 @@ const CadastroFgts = () => {
                                                 return getCEP(state.cep)
 
                                             } else {
-                                                return swal.fire({
+                                                return Swal.fire({
                                                     title: 'ERRO',
                                                     icon: "error",
                                                     text: "Digite o cep corretamente"
@@ -1503,14 +1556,76 @@ const CadastroFgts = () => {
 
                             <div className={'boxSelect'}>
 
-                                <SelectBank action={setAgenciaReceber} label={'Agência (Recebe)'} />
+                                {
+                                    /**
+                                     *  <SelectBank action={setAgenciaReceber} label={'Agência (Recebe)'} />
+                                     */
+                                }
+
+                                <div className="containerInput inputMenor ">
+
+                                    <label htmlFor=''>Agência (Recebe):</label>
+
+                                    <div className="inputBox">
+
+                                        <section className='btnIcon'>
+                                            <i className="fa fa-university" />
+                                        </section>
+
+                                        <input
+                                            type="text"
+                                            name=''
+                                            id=''
+                                            value={state.agenciaReceber || ''}
+                                            onChange={e => {
+                                                return setState({
+                                                    ...state,
+                                                    agenciaReceber: e.target.value
+                                                })
+                                            }}
+                                        />
+
+                                    </div>
+
+                                </div>
 
                             </div>
 
 
                             <div className={'boxSelect'}>
 
-                                <SelectBank action={setContaReceber} label={'Conta (Recebe)'} />
+                                {
+                                    /**
+                                     *    <SelectBank action={setContaReceber} label={'Conta (Recebe)'} />
+                                     */
+                                }
+
+                                <div className="containerInput inputMenor ">
+
+                                    <label htmlFor=''>Conta (Recebe):</label>
+
+                                    <div className="inputBox">
+
+                                        <section className='btnIcon'>
+                                            <i className="fa fa-university" />
+                                        </section>
+
+                                        <input
+                                            type="text"
+                                            name=''
+                                            id=''
+                                            value={state.contaReceber || ''}
+                                            onChange={e => {
+                                                return setState({
+                                                    ...state,
+                                                    contaReceber: e.target.value
+                                                })
+                                            }}
+                                        />
+
+                                    </div>
+
+                                </div>
 
                             </div>
 
@@ -1593,7 +1708,38 @@ const CadastroFgts = () => {
 
                             <div className={'boxSelect'}>
 
-                                <SelectBank action={setAgente} label={'Agente'} option={agentes} icon="fa fa-text-width" />
+                                {
+                                    /**
+                                     *  <SelectBank action={setAgente} label={'Agente'} option={agentes} icon="fa fa-text-width" />
+                                     */
+                                }
+
+                                <div className="containerInput inputGrd ">
+
+                                    <label htmlFor=''>Agente:</label>
+
+                                    <div className="inputBox">
+
+                                        <section className='btnIcon'>
+                                            <i className="fa fa-text-width" />
+                                        </section>
+
+                                        <input
+                                            type="text"
+                                            name=''
+                                            id=''
+                                            value={state.agente || ''}
+                                            onChange={e => {
+                                                return setState({
+                                                    ...state,
+                                                    agente: e.target.value
+                                                })
+                                            }}
+                                        />
+
+                                    </div>
+
+                                </div>
 
                             </div>
 
@@ -1779,7 +1925,31 @@ const CadastroFgts = () => {
                             </div>
 
                         </div>
+
+
+                        <div
+                            className="btn"
+                            onClick={e => {
+                                return cadastrarProposta();
+                            }}
+
+                        >
+                            {!state.loading && (
+                                <div className="btnConsultar">
+                                    <span>
+                                        Cadastrar
+                                    </span>
+                                </div>
+                            )}
+                            {state.loading && (
+                                <div className="contendSpinner">
+                                    <div id="loading" className="spinner">
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                     </div>
+
 
                 </div>
 

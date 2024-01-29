@@ -1988,7 +1988,49 @@ const formaContratos = [
     {
         value: 2,
         label: 'REFIN'
-    }
+    },
+    {
+        value: "PAPCARD + CARTÃO"
+    },
+    {
+        value: 'PORTABILIDADE'
+    },
+    {
+        value: 'CARTÃO VENDA + SAQUE'
+    },
+    {
+        value: " CARTÃO PLASTICO"
+    },
+    {
+        value: "SAQUE COMPLEMENTAR"
+    },
+    {
+        value: "REFIN COM AGREGAÇÃO"
+    },
+    {
+        value: "AUMENTO DE MARGEM"
+    },
+    {
+        value: "SEGURO"
+    },
+    {
+        value: "SEGURO PRESTAMISTA"
+    },
+    {
+        value: "CARTÃO BENEFÍCIO"
+    },
+    {
+        value: "NOVO + REPRESENTANTE"
+    },
+    {
+        value: "AUMENTO DE MARGEM + REPRESENTANTE"
+    },
+    {
+        value: 'CARTÃO BENEFÍCIO + REPRESENTANTE'
+    },
+    {
+        value: "FGTS"
+    },
 ]
 
 const convenioFinanciamanto = [
@@ -2000,19 +2042,43 @@ const convenioFinanciamanto = [
         value: 'GOVERNO DE SÂO PAULO',
 
     },
+    {
+        value: "AERONAUTICA"
+    },
+    {
+        value: "CRÉDITO PESSOAL"
+    },
+    {
+        value: "SAQUE COMPLEMENTAR"
+    },
+    {
+        value: "SEGURO PRESTAMISTA"
+    },
+    {
+        value: "FGTS"
+    },
+    {
+        value: "MARINHA"
+    },
+    {
+        value: "SIAPE"
+    }
 
 
 ]
 
 const tabelaCommissao = [
-    {
-        value: 'null',
 
-    },
-    {
-        value: 'null',
+    { label: 'LIGHT RB', value: 48291, cheked: true },
+    { label: 'PLUS RB', value: 48267, cheked: true },
+    { label: 'PLUS + RB', value: 48259, cheked: true },
+    { label: 'GOLD  RB', value: 48240, cheked: true },
+    { label: 'GOLD + RB', value: 48232, cheked: true },
+    { label: 'SMART RB', value: 48305, cheked: true },
+    { label: 'TOP RB', value: 48275, cheked: true },
+    { label: 'FLEX 1 RB', value: 48283, cheked: true },
+    { label: 'TURBO AG', value: 48445, cheked: true },
 
-    },
 
 
 ]
@@ -2048,11 +2114,11 @@ const prazoComissao = [
     },
     {
         value: 6
-    }, 
+    },
     {
         value: 7
     },
-   
+
 ]
 
 export {
