@@ -5,6 +5,7 @@ import InformacoesCliente from '../InformacoesClientes/InformacoesCliente';
 
 
 const CreateTable = ({ colunas, dados }) => {
+  
   //console.log(dados)
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns: colunas, data: dados });
 

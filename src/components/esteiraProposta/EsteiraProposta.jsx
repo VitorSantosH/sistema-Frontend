@@ -3,6 +3,7 @@ import './EsteiraProposta.css';
 import NumberFormat from 'react-number-format'
 import Swal from 'sweetalert2'
 import connect from "../../config/connect";
+import { parseDate } from '@internationalized/date';
 
 //components 
 import Menu from "../menu/Menu";
@@ -11,10 +12,21 @@ import CreateTable from '../createTable/CreateTable.jsx'
 const EsteiraProposta = (props) => {
 
     const cpfRegex = /^\d{11}$/;
+    const datafim = formatDate(new Date());
+    const data30DiasAtras = new Date();
+    data30DiasAtras.setDate(data30DiasAtras.getDate() - 30);
+    const dataIni = formatDate(data30DiasAtras)
     const [state, setState] = useState({
         cpfValue: '',
         id: '',
         filtro: "",
+        name: "",
+        financeira: "",
+        status: "",
+        dataIni: dataIni,
+        datafim: datafim,
+        cadastradoPor: "",
+        operação: "",
         loading: false
     })
 
@@ -24,12 +36,18 @@ const EsteiraProposta = (props) => {
         loadingFiltro: false
     })
 
-    useEffect(() => {
 
+
+    useEffect(() => {
 
     }, [state.filtro,])
 
-
+    function formatDate(date) {
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
 
     function completarComZeros(numero, tamanhoMinimo) {
 
@@ -47,17 +65,23 @@ const EsteiraProposta = (props) => {
         return numeroString;
     }
 
-    async function getFgtsStatus() {
+    async function getPropostaStatus() {
 
         setState(prevState => ({
             ...prevState,
             loading: true
         }));
 
-        console.log('aqui')
+
         const params = {
+
             CPF: state.cpfValue,
-            NUMERO_ACOMPANHAMENTO: state.NUMERO_ACOMPANHAMENTO
+            NUMERO_ACOMPANHAMENTO: state.NUMERO_ACOMPANHAMENTO,
+            NOME: state.name,
+            FINANCEIRA: state.financeira,
+            CADASTRADOPOR: state.cadastradoPor,
+            STATUS_PROPOSTA: state.status
+
         }
         const response = await connect.getPropostas({ ...params })
         console.log(response)
@@ -85,7 +109,7 @@ const EsteiraProposta = (props) => {
         { Header: 'Nº CONTRATO', accessor: 'Nº CONTRATO' },
         { Header: 'COMISSÂO', accessor: 'COMISSAO' },
         { Header: 'STATUS', accessor: 'STATUS' },
-
+        { Header: 'AÇÕES', accessor: 'ACOES' }
 
     ];
 
@@ -102,7 +126,17 @@ const EsteiraProposta = (props) => {
                 'Nº CONTRATO': item.NUMERO_ACOMPANHAMENTO,
                 COMISSAO: item.TABELA_COMISSAO,
                 STATUS: item.STATUS_PROPOSTA,
-                SUPERVISOR: item.SUPERVISOR
+                SUPERVISOR: item.SUPERVISOR,
+                ACOES: (
+                    <i 
+                        className="fa fa-plus-square"
+                        onClick={e => {
+                            handleClick(item)
+                            console.log(item)
+                        }}
+                        ></i>
+                )
+            
                 // Adicione mais campos conforme necessário
             };
         });
@@ -113,7 +147,7 @@ const EsteiraProposta = (props) => {
         setStateDados(prevState => ({
             ...prevState,
             loadingFiltro: true,
-            
+
         }))
 
         //filtrar dados
@@ -225,7 +259,7 @@ const EsteiraProposta = (props) => {
 
 
 
-                                                return getFgtsStatus();
+                                                return getPropostaStatus();
                                             }
                                         }}
 
@@ -268,7 +302,7 @@ const EsteiraProposta = (props) => {
 
                                             if (e.key === "Enter") {
 
-                                                return getFgtsStatus();
+                                                return getPropostaStatus();
                                             }
                                         }}
 
@@ -278,13 +312,230 @@ const EsteiraProposta = (props) => {
 
                             </section>
                         </div>
+
+                        <div className="inputItem">
+
+                            <label htmlFor="cpf">
+                                Nome
+                            </label>
+
+                            <section className="pt2">
+
+                                <div className="cpf">
+                                    <input
+                                        type="text"
+                                        name=""
+                                        id=""
+                                        value={state.name || ""}
+                                        onChange={e => {
+
+
+                                            console.log(state)
+                                            return setState({
+                                                ...state,
+                                                name: e.target.value
+                                            });
+
+                                        }}
+                                        onKeyPress={e => {
+
+                                            if (e.key === "Enter") {
+
+                                                return getPropostaStatus();
+                                            }
+                                        }}
+                                    />
+
+
+
+
+                                </div>
+
+
+                            </section>
+
+                        </div>
+
+                        <div className="inputItem">
+
+                            <label htmlFor="cpf">
+                                FINANCEIRA
+                            </label>
+
+                            <section className="pt2">
+
+                                <div className="cpf">
+                                    <input
+                                        type="text"
+                                        name=""
+                                        id=""
+                                        value={state.financeira || ""}
+                                        onChange={e => {
+
+
+                                            return setState({
+                                                ...state,
+                                                financeira: e.target.value
+                                            });
+
+                                        }}
+                                        onKeyPress={e => {
+
+                                            if (e.key === "Enter") {
+
+                                                return getPropostaStatus();
+                                            }
+                                        }}
+                                    />
+
+
+
+
+                                </div>
+
+
+                            </section>
+
+                        </div>
+
+                        <div className="inputItem">
+
+                            <label htmlFor="cpf">
+                                STATUS PRINCIPAL
+                            </label>
+
+                            <section className="pt2">
+
+                                <div className="cpf">
+                                    <input
+                                        type="text"
+                                        name=""
+                                        id=""
+                                        value={state.status || ""}
+                                        onChange={e => {
+
+                                            console.log(state)
+                                            return setState({
+                                                ...state,
+                                                status: e.target.value
+                                            });
+
+                                        }}
+                                        onKeyPress={e => {
+
+                                            if (e.key === "Enter") {
+
+                                                return getPropostaStatus();
+                                            }
+                                        }}
+                                    />
+
+
+
+
+                                </div>
+
+
+                            </section>
+
+                        </div>
+
+
+
+                        <div className="inputItem" style={{ "display": "none" }}>
+
+                            <label htmlFor="cpf">
+                                DATA INÍCIO
+                            </label>
+
+                            <section className="pt2">
+
+                                <div className="cpf">
+
+                                    <NumberFormat
+                                        format="##/##/####"
+                                        className='inputTel'
+                                        aria-describedby=""
+                                        placeholder="01/01/1950"
+                                        value={state.dataIni || ""}
+                                        //  style={{ 'borderColor': stateCadLoja.stateEmailStyle ? '' : '#EE3B3B' }}
+                                        onValueChange={(values, info) => {
+                                            const { formattedValue, value } = values;
+
+                                            return setState({
+                                                ...state,
+                                                dataIni: value
+                                            })
+
+                                        }}
+
+                                        onKeyPress={e => {
+
+                                            if (e.key === "Enter") {
+
+                                                return getPropostaStatus();
+                                            }
+                                        }}
+
+                                    />
+                                </div>
+
+                            </section>
+                        </div>
+
+
+                        <div
+
+                            className="inputItem"
+                            style={{ "display": "none" }}
+                        >
+
+                            <label htmlFor="cpf">
+                                DATA FIM
+                            </label>
+
+                            <section className="pt2">
+
+                                <div className="cpf">
+
+                                    <NumberFormat
+                                        format="##/##/####"
+                                        className='inputTel'
+                                        aria-describedby=""
+                                        placeholder="01/01/1950"
+                                        value={state.datafim || ""}
+                                        //  style={{ 'borderColor': stateCadLoja.stateEmailStyle ? '' : '#EE3B3B' }}
+                                        onValueChange={(values, info) => {
+                                            const { formattedValue, value } = values;
+
+                                            return setState({
+                                                ...state,
+                                                datafim: value
+                                            })
+
+                                        }}
+
+                                        onKeyPress={e => {
+
+                                            if (e.key === "Enter") {
+
+                                                return getPropostaStatus();
+                                            }
+                                        }}
+
+                                    />
+                                </div>
+
+                            </section>
+                        </div>
+
                     </div>
 
 
                     <div
                         className="btn"
                         onClick={e => {
-                            return getFgtsStatus();
+                            return getPropostaStatus();
                         }}
 
                     >
@@ -327,10 +578,10 @@ const EsteiraProposta = (props) => {
                                         value={state.filtro || ""}
                                         onChange={e => {
 
-                                            if(e.target.value == "") {
+                                            if (e.target.value == "") {
                                                 filtrarDados(e);
                                             }
-                                            
+
                                             console.log(state)
                                             return setState({
                                                 ...state,
