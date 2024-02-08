@@ -14,6 +14,7 @@ import CadastroConsignado from "./components/cadastroConsignado/CadastroConsigna
 import EsteiraProposta from "./components/esteiraProposta/EsteiraProposta";
 import Login from "./components/login/Login";
 import AdicionarXlsx from "./components/uploadXlsx/AdicionarXlsx";
+import GetInfoCpf from "./components/getInfoCpf/GetInfoCpf";
 
 const Rotas = () => {
 
@@ -21,6 +22,7 @@ const Rotas = () => {
 
         <Router>
             <Routes>
+                <Route exact path="/GetInfoCpf" element={<GetInfoCpf />} />
                 <Route exact path="/AdicionarXlsx" element={<AdicionarXlsx />} />
                 <Route exact path="/esteira-proposta" element={<EsteiraProposta />} />
                 <Route exact path="/cadastro-CONSIGNADO" element={<CadastroConsignado />} />

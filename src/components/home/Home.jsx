@@ -137,6 +137,23 @@ const Home = () => {
 
                     </div>
 
+                    <div
+                        className="usersDiv"
+                        onClick={e => navigate(`/GetInfoCpf`)}
+                    >
+
+                        <i
+                            className="fa  fa-id-card"
+                        >
+
+                        </i>
+
+                        <span>
+                            Pergar informações com CPFs
+                        </span>
+
+                    </div>
+
 
                 </div>
 
