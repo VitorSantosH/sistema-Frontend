@@ -4,10 +4,12 @@ import NumberFormat from 'react-number-format'
 import Swal from 'sweetalert2'
 import connect from "../../config/connect";
 import { parseDate } from '@internationalized/date';
+import {bancosBrasil} from '../cadastroFgts/subComponents/ufs_orgEmissor.jsx'
 
 //components 
 import Menu from "../menu/Menu";
 import CreateTable from '../createTable/CreateTable.jsx'
+import SelectBank from '../cadastroFgts/subComponents/SelectBank.jsx'
 
 const EsteiraProposta = (props) => {
 
@@ -128,15 +130,15 @@ const EsteiraProposta = (props) => {
                 STATUS: item.STATUS_PROPOSTA,
                 SUPERVISOR: item.SUPERVISOR,
                 ACOES: (
-                    <i 
+                    <i
                         className="fa fa-plus-square"
                         onClick={e => {
                             handleClick(item)
                             console.log(item)
                         }}
-                        ></i>
+                    ></i>
                 )
-            
+
                 // Adicione mais campos conforme necessário
             };
         });
@@ -362,39 +364,19 @@ const EsteiraProposta = (props) => {
                                 FINANCEIRA
                             </label>
 
-                            <section className="pt2">
+                            <div className={''}>
 
-                                <div className="cpf">
-                                    <input
-                                        type="text"
-                                        name=""
-                                        id=""
-                                        value={state.financeira || ""}
-                                        onChange={e => {
+                                <SelectBank action={e => {
 
+                                   
+                                     return setState({
+                                        ...state,
+                                        financeira: e.label
+                                    });
+                                }} label={'Prazo'}  icon="none" />
 
-                                            return setState({
-                                                ...state,
-                                                financeira: e.target.value
-                                            });
-
-                                        }}
-                                        onKeyPress={e => {
-
-                                            if (e.key === "Enter") {
-
-                                                return getPropostaStatus();
-                                            }
-                                        }}
-                                    />
-
-
-
-
-                                </div>
-
-
-                            </section>
+                            </div>
+                          
 
                         </div>
 

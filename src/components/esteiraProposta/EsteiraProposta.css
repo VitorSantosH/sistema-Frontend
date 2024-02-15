@@ -132,3 +132,8 @@
 .btnConsultar span:active {
     background-color: rgb(187, 100, 25); /* Cor alterada durante o clique */
 }
+
+#react-select-3-input {
+
+    box-shadow: none;
+}

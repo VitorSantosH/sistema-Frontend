@@ -58,7 +58,9 @@ const SelectBank = props => {
                     <section className='btnIcon'>
 
 
-                        <i className={props.icon || "fa fa-university"} />
+                        {props.icon != "none" && (
+                            <i className={props.icon || "fa fa-university"} />
+                        )}
 
                         <Select
                             placeholder='Selecione...'
@@ -66,7 +68,7 @@ const SelectBank = props => {
                             defaultValue={selectBankOption}
                             onChange={e => {
 
-
+                                console.log(e)
                                 props.action(e)
                                 return setSelectBankOption(e)
                             }}

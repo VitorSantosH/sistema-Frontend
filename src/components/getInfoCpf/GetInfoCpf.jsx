@@ -29,7 +29,8 @@ const GetInfoCpf = () => {
     });
     const [state, setState] = useState({
         user: undefined,
-        loginVerificado: false
+        loginVerificado: false,
+        loading: false
     });
     const [planilhaLink, setPlanilhaLink] = useState('');
 
@@ -91,6 +92,7 @@ const GetInfoCpf = () => {
     };
 
     const handleUpload = async () => {
+
         if (selectedFile) {
             try {
                 const formData = new FormData();
@@ -106,7 +108,7 @@ const GetInfoCpf = () => {
 
                 console.log(response)
 
-                
+
 
                 try {
                     setPlanilhaLink(`${configBase.baseURL}${response.data.url}`);
@@ -114,6 +116,10 @@ const GetInfoCpf = () => {
                     console.error('Erro ao obter o link da planilha:', error);
                 }
 
+                setState(prevState => ({
+                    ...prevState,
+                    loading: false
+                }))
                 resetFileInput()
                 return Swal.fire({
                     icon: "success",
@@ -121,12 +127,21 @@ const GetInfoCpf = () => {
                     text: ` `
                 })
             } catch (error) {
+                setState(prevState => ({
+                    ...prevState,
+                    loading: false
+                }))
                 console.error('Erro ao fazer upload:', error);
             }
         } else {
+            setState(prevState => ({
+                ...prevState,
+                loading: false
+            }))
             alert('Por favor, selecione um arquivo antes de fazer o upload.');
         }
     };
+
 
     const resetFileInput = () => {
         setSelectedFile(null);
@@ -134,6 +149,14 @@ const GetInfoCpf = () => {
         fileInputRef.current.value = null;
     };
 
+    const getInfosData = async () => {
+
+        const response = await api.get('/cpfinfo/getRequestInfos');
+
+        
+        return console.log(response.data)
+
+    }
 
 
     return (
@@ -157,13 +180,36 @@ const GetInfoCpf = () => {
                         <>
                             <p>Arquivo selecionado: {selectedFile.name}</p>
 
-                            <button onClick={handleUpload}> <i className="fa fa-upload"></i>Fazer Upload</button>
+                            {state.loading && (
+                                <div id="loading-login" className="spinner">
+                                </div>
+                            )}
+                            {!state.loading && (
+                                <button onClick={e => {
+                                    setState(prevState => ({
+                                        ...prevState,
+                                        loading: true
+                                    }))
+                                    handleUpload()
+                                }}> <i className="fa fa-upload"></i>Fazer Upload</button>
+                            )}
                         </>
                     )}
 
                     <div>
-                       
+
                         {planilhaLink && <p>Link da Planilha: <a href={planilhaLink} target="_blank" rel="noopener noreferrer">{planilhaLink}</a></p>}
+                    </div>
+
+
+                    <div>
+                        <button
+                            onClick={e => {
+                                return getInfosData();
+                            }}
+                        >
+                            Click
+                        </button>
                     </div>
                 </div>
             </div>
