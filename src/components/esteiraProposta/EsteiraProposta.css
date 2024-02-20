@@ -137,3 +137,8 @@
 
     box-shadow: none;
 }
+
+.css-w9q2zk-Input2 input:focus-within,  .css-w9q2zk-Input2  input:active {
+    outline: none;
+   
+}

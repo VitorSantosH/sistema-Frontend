@@ -1,13 +1,13 @@
 .GetInfoCpf {
     box-sizing: border-box;
-    width: 100%;
     min-height: 100vh;
     background-color: #e8e6e6bc;
     display: flex;
     padding: 2rem;
-    justify-content: center;
+    align-items: center;
     padding-top: 4rem;
     width: 100%;
+    flex-direction: column;
 }
 
 .uploadContainer, .uploadContainer input {
@@ -38,7 +38,7 @@
     /* Definindo uma altura para o input para melhorar a aparência */
     height: 2rem;
     /* Adicionando algum espaçamento interno para melhorar a aparência */
-    background-color:  rgb(237, 141, 45);
+    background-color: rgb(237, 141, 45);
     color: #fff;
     padding: 0.5rem;
     border-radius: 8px;
@@ -59,7 +59,7 @@
     width: 200px;
     justify-content: space-around;
     align-items: center;
-    background-color:  rgb(237, 141, 45);
+    background-color: rgb(237, 141, 45);
     color: #fff;
     border: none;
 }
@@ -72,11 +72,35 @@
 }
 
 
+.GetInfoCpf .fa-download {
+    font-size: 2rem;
+    color: black;
+}
+
+.links {
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    width: 40vw;
+    min-width: 350px;
+    max-width: 600px;
+    background-color: rgba(255, 255, 255, 0.935);
+    box-shadow: 10px 0px 8px 0px rgba(0, 0, 0, 0.10);
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: 2rem;
+    border-radius: 8px;
+    height: max-content;
+    margin:  2rem 0;
+
+}
 
 @media only screen and (max-width: 850px) {
 
     .uploadContainer, .uploadContainer input {
-    
+
         width: 80vw;
         min-width: 350px;
         max-width: 600px;

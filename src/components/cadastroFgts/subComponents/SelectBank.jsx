@@ -15,7 +15,7 @@ const SelectBank = props => {
 
             const options = props.option.map((e, i) => {
 
-                return {value: e.value, label: e.label || e.value}
+                return { value: e.value, label: e.label || e.value }
             })
 
             return options
@@ -27,7 +27,7 @@ const SelectBank = props => {
                     <option key={e.bank + i} value={e.bank}>{`${e.code}: ${e.bank}`}</option>
                 )
                 */
-                return { value: e.bank, label: `${e.code}: ${e.bank}` }
+                return { value: e.code, label: ` ${e.bank}` }
             })
 
             return bancos
@@ -51,8 +51,10 @@ const SelectBank = props => {
 
             <div className="containerSelect">
 
-                <label htmlFor="ufrg">{props.label}:</label>
-
+                <label
+                    htmlFor="ufrg"
+                    style={{ paddingBottom: "0rem" }}
+                >{props.label}:</label>
                 <div className="selectBox">
 
                     <section className='btnIcon'>
@@ -68,7 +70,7 @@ const SelectBank = props => {
                             defaultValue={selectBankOption}
                             onChange={e => {
 
-                                console.log(e)
+                              
                                 props.action(e)
                                 return setSelectBankOption(e)
                             }}

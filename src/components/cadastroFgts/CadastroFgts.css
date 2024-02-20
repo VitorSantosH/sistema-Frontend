@@ -224,6 +224,11 @@
     border-radius: 8px;
 }
 
+.cpf input {
+
+    height: 3rem !important;
+}
+
 @keyframes loading-bar-spinner {
     to {
         transform: rotate(360deg);

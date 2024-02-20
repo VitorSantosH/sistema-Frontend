@@ -153,9 +153,23 @@ const connect = {
 
         return response
 
+    },
+
+    getNamesXls: async (props) => {
+
+        const response = await api.get('/cpfinfo/getAllPlanilhas')
+            .then(res => {
+
+                return res
+
+            }).catch(err => {
+
+                return err.response
+            })
+
+        return response
+
     }
-
-
 }
 
 

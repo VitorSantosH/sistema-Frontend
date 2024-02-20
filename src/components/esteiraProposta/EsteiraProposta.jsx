@@ -24,6 +24,7 @@ const EsteiraProposta = (props) => {
         filtro: "",
         name: "",
         financeira: "",
+        financeiraValue: "",
         status: "",
         dataIni: dataIni,
         datafim: datafim,
@@ -74,6 +75,7 @@ const EsteiraProposta = (props) => {
             loading: true
         }));
 
+        console.log(state)
 
         const params = {
 
@@ -360,23 +362,16 @@ const EsteiraProposta = (props) => {
 
                         <div className="inputItem">
 
-                            <label htmlFor="cpf">
-                                FINANCEIRA
-                            </label>
-
-                            <div className={''}>
-
                                 <SelectBank action={e => {
 
+                                    console.log("aqui")
                                    
                                      return setState({
                                         ...state,
-                                        financeira: e.label
+                                        financeira: e.label,
+                                        financeiraValue: e.value
                                     });
-                                }} label={'Prazo'}  icon="none" />
-
-                            </div>
-                          
+                                }} label={'FINANCEIRA'}  icon="none" />
 
                         </div>
 

@@ -18,6 +18,7 @@ import configBase from "../../config/.config.jsx";
 
 // outras importações 
 import Swal from "sweetalert2";
+import connect from "../../config/connect.jsx";
 
 const GetInfoCpf = () => {
 
@@ -30,7 +31,8 @@ const GetInfoCpf = () => {
     const [state, setState] = useState({
         user: undefined,
         loginVerificado: false,
-        loading: false
+        loading: false,
+        links: [],
     });
     const [planilhaLink, setPlanilhaLink] = useState('');
 
@@ -153,11 +155,70 @@ const GetInfoCpf = () => {
 
         const response = await api.get('/cpfinfo/getRequestInfos');
 
-        
+
         return console.log(response.data)
 
     }
 
+    const getAllXls = async () => {
+
+        try {
+            const response = await connect.getNamesXls();
+
+            //  const caminhoPagina = window.location.pathname;
+            const hostPagina = window.location.host;
+            // const protocoloPagina = window.location.protocol;
+
+            //  console.log('Caminho:', caminhoPagina);
+            // console.log('Host:', hostPagina);
+            // console.log('Protocolo:', protocoloPagina);
+
+            const links = [];
+
+            response.data.forEach(element => {
+                let string = `${hostPagina}/static/${element.name}`
+                let size = element.size
+
+                let obj = {
+                    string,
+                    size,
+                    name: element.name
+                }
+                links.push(obj)
+            });
+
+            setState(prevState => ({
+                ...prevState,
+                links: links
+            }))
+
+        } catch (error) {
+
+            Swal.fire({
+                icon: "error",
+                title: "Erro",
+                text: "Falha ao carregar planilhas"
+            })
+
+        }
+    }
+
+    const ReturnLinksDiv = () => {
+
+        const element = [];
+
+        state.links.forEach((link, index) => {
+
+            element.push(<div key={index + link.name}>
+                <p> {link.name} {`${(link.size/1024).toFixed(2)}MB`}: <a href={link.string} target="_blank" rel="noopener noreferrer">
+                    <i className="fa fa-download ">
+                    </i></a></p>
+            </div>)
+        })
+
+        return element
+
+    }
 
     return (
         <>
@@ -202,16 +263,26 @@ const GetInfoCpf = () => {
                     </div>
 
 
-                    <div>
+                    <div style={{ display: "flex" }}>
                         <button
                             onClick={e => {
-                                return getInfosData();
+                                // return getInfosData();
+
+                                return getAllXls()
                             }}
                         >
                             Click
                         </button>
                     </div>
+
+
                 </div>
+
+                {state.links && (
+                    <div className="links">
+                        {ReturnLinksDiv()}
+                    </div>
+                )}
             </div>
 
         </>

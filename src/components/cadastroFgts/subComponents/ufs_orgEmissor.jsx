@@ -811,6 +811,10 @@ const ufs = [
 
 const bancosBrasil = [
     {
+        "code": 0,
+        'bank': 'Selecione'
+    },
+    {
         "code": 1,
         "bank": "Banco Do Brasil S.A (BB)"
     },
