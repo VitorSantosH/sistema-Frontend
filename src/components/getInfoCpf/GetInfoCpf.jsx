@@ -33,6 +33,7 @@ const GetInfoCpf = () => {
         loginVerificado: false,
         loading: false,
         links: [],
+        loadedPlanilhas: false,
     });
     const [planilhaLink, setPlanilhaLink] = useState('');
 
@@ -46,7 +47,12 @@ const GetInfoCpf = () => {
             })
         }
 
-    }, [])
+        if(!state.loadedPlanilhas) {
+            console.log('aqui')
+            getAllXls();
+        }
+
+    }, [state.links, state.loadedPlanilhas])
 
     function verifyLogin() {
 
@@ -120,7 +126,8 @@ const GetInfoCpf = () => {
 
                 setState(prevState => ({
                     ...prevState,
-                    loading: false
+                    loading: false,
+                    loadedPlanilhas: true
                 }))
                 resetFileInput()
                 return Swal.fire({
@@ -162,6 +169,8 @@ const GetInfoCpf = () => {
 
     const getAllXls = async () => {
 
+        if(!state.loadedPlanilhas)
+
         try {
             const response = await connect.getNamesXls();
 
@@ -176,7 +185,7 @@ const GetInfoCpf = () => {
             const links = [];
 
             response.data.forEach(element => {
-                let string = `${hostPagina}/static/${element.name}`
+                let string = `/static/${element.name}`
                 let size = element.size
 
                 let obj = {
@@ -189,7 +198,8 @@ const GetInfoCpf = () => {
 
             setState(prevState => ({
                 ...prevState,
-                links: links
+                links: links,
+                loadedPlanilhas: true
             }))
 
         } catch (error) {
@@ -219,6 +229,9 @@ const GetInfoCpf = () => {
         return element
 
     }
+
+    getAllXls();
+   
 
     return (
         <>
@@ -268,7 +281,8 @@ const GetInfoCpf = () => {
                             onClick={e => {
                                 // return getInfosData();
 
-                                return getAllXls()
+                              //  return getAllXls()
+                              getInfosData();
                             }}
                         >
                             Click
@@ -278,8 +292,10 @@ const GetInfoCpf = () => {
 
                 </div>
 
-                {state.links && (
-                    <div className="links">
+                {state.links.length > 0 && (
+                    <div className="links"
+                        
+                    >
                         {ReturnLinksDiv()}
                     </div>
                 )}

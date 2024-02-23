@@ -82,7 +82,7 @@ const EsteiraProposta = (props) => {
             CPF: state.cpfValue,
             NUMERO_ACOMPANHAMENTO: state.NUMERO_ACOMPANHAMENTO,
             NOME: state.name,
-            FINANCEIRA: state.financeira,
+            FINANCEIRA: state.financeiraValue ? state.financeiraValue : "",
             CADASTRADOPOR: state.cadastradoPor,
             STATUS_PROPOSTA: state.status
 
@@ -505,6 +505,7 @@ const EsteiraProposta = (props) => {
 
                             </section>
                         </div>
+                        
 
                     </div>
 
