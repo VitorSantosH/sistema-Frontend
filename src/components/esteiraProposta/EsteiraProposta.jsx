@@ -15,9 +15,25 @@ const EsteiraProposta = (props) => {
 
     const cpfRegex = /^\d{11}$/;
     const datafim = formatDate(new Date());
+    
     const data30DiasAtras = new Date();
     data30DiasAtras.setDate(data30DiasAtras.getDate() - 30);
+
     const dataIni = formatDate(data30DiasAtras)
+     
+    const colunas = [
+        { Header: 'ID', accessor: 'ID' },
+        { Header: 'CPF', accessor: 'CPF' },
+        { Header: 'CLIENTE', accessor: 'CLIENTE' },
+        { Header: 'TELEFONE', accessor: 'TELEFONE' },
+        { Header: 'UNID. NEGÓCIOS', accessor: 'unidade' },
+        { Header: 'CADASTRADO POR', accessor: 'CADASTRADO POR' },
+        { Header: 'Nº CONTRATO', accessor: 'Nº CONTRATO' },
+        { Header: 'COMISSÂO', accessor: 'COMISSAO' },
+        { Header: 'STATUS', accessor: 'STATUS' },
+        { Header: 'AÇÕES', accessor: 'ACOES' }
+
+    ];
     const [state, setState] = useState({
         cpfValue: '',
         id: '',
@@ -101,21 +117,7 @@ const EsteiraProposta = (props) => {
             dadosTabela: converterDadosParaAcessos(data),
         })
     }
-
-
-    const colunas = [
-        { Header: 'ID', accessor: 'ID' },
-        { Header: 'CPF', accessor: 'CPF' },
-        { Header: 'CLIENTE', accessor: 'CLIENTE' },
-        { Header: 'TELEFONE', accessor: 'TELEFONE' },
-        { Header: 'UNID. NEGÓCIOS', accessor: 'unidade' },
-        { Header: 'CADASTRADO POR', accessor: 'CADASTRADO POR' },
-        { Header: 'Nº CONTRATO', accessor: 'Nº CONTRATO' },
-        { Header: 'COMISSÂO', accessor: 'COMISSAO' },
-        { Header: 'STATUS', accessor: 'STATUS' },
-        { Header: 'AÇÕES', accessor: 'ACOES' }
-
-    ];
+   
 
     const converterDadosParaAcessos = (dados) => {
         return dados.map((item) => {

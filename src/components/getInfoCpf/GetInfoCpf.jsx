@@ -47,7 +47,7 @@ const GetInfoCpf = () => {
             })
         }
 
-        if(!state.loadedPlanilhas) {
+        if (!state.loadedPlanilhas) {
             console.log('aqui')
             getAllXls();
         }
@@ -110,16 +110,16 @@ const GetInfoCpf = () => {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
+                    timeout: 900000,
                 };
 
-                const response = await api.post('/cpfinfo/upload-cpfs', formData, config);
-
-                console.log(response)
-
-
+                let response
 
                 try {
+                    response = await api.post('/cpfinfo/upload-cpfs', formData, config);
                     setPlanilhaLink(`${configBase.baseURL}${response.data.url}`);
+                    console.log(response)
+
                 } catch (error) {
                     console.error('Erro ao obter o link da planilha:', error);
                 }
@@ -162,6 +162,25 @@ const GetInfoCpf = () => {
 
         const response = await api.get('/cpfinfo/getRequestInfos');
 
+        /* const wsData = [];
+ 
+         response.data.filtro5.forEach((item, index) => {
+ 
+ 
+             const criatura = {
+                 nome: item.response.content.nome.conteudo.nome || "",
+                 cpf: item.response.content.nome.conteudo.documento || "",
+                 mae: item.response.content.nome.conteudo.mae || "",
+                 telefoneFixo: item.response.content.pesquisa_telefones.conteudo.fixo.numero || "",
+                 telefone: item.response.content.pesquisa_telefones.conteudo.celular.telefone?  item.response.content.pesquisa_telefones.conteudo.celular.telefone.numero : "",
+                 parentes: item.response.content.dados_parentes.existe_informacao !== "NAO" ? extrairDadosParentes(item.response.content.dados_parentes?.conteudo?.contato) : [],
+             };
+ 
+             wsData.push(criatura)
+ 
+         })
+ 
+         */
 
         return console.log(response.data)
 
@@ -169,48 +188,81 @@ const GetInfoCpf = () => {
 
     const getAllXls = async () => {
 
-        if(!state.loadedPlanilhas)
+        if (!state.loadedPlanilhas)
 
-        try {
-            const response = await connect.getNamesXls();
+            try {
+                const response = await connect.getNamesXls();
 
-            //  const caminhoPagina = window.location.pathname;
-            const hostPagina = window.location.host;
-            // const protocoloPagina = window.location.protocol;
+                //  const caminhoPagina = window.location.pathname;
+                const hostPagina = window.location.host;
+                // const protocoloPagina = window.location.protocol;
 
-            //  console.log('Caminho:', caminhoPagina);
-            // console.log('Host:', hostPagina);
-            // console.log('Protocolo:', protocoloPagina);
+                //  console.log('Caminho:', caminhoPagina);
+                // console.log('Host:', hostPagina);
+                // console.log('Protocolo:', protocoloPagina);
 
-            const links = [];
+                const links = [];
 
-            response.data.forEach(element => {
-                let string = `/static/${element.name}`
-                let size = element.size
+                response.data.forEach(element => {
 
-                let obj = {
-                    string,
-                    size,
-                    name: element.name
-                }
-                links.push(obj)
-            });
+                    let name = formatarDate(element.name);
 
-            setState(prevState => ({
-                ...prevState,
-                links: links,
-                loadedPlanilhas: true
-            }))
+                    console.log(name)
 
-        } catch (error) {
+                    let string = `/static/${element.name}`
+                    let size = element.size
 
-            Swal.fire({
-                icon: "error",
-                title: "Erro",
-                text: "Falha ao carregar planilhas"
-            })
+                    let obj = {
+                        string,
+                        size,
+                        name: name
+                    }
+                    links.push(obj)
+                });
 
+                links.reverse();
+
+                setState(prevState => ({
+                    ...prevState,
+                    links: links,
+                    loadedPlanilhas: true
+                }))
+
+            } catch (error) {
+
+                Swal.fire({
+                    icon: "error",
+                    title: "Erro",
+                    text: "Falha ao carregar planilhas"
+                })
+
+            }
+    }
+
+    const formatarDate = (nomeArquivo) => {
+
+        const timestampString = nomeArquivo.slice(6); // Extrai os últimos dígitos como uma string de timestamp
+
+        const date = parseInt(timestampString);
+
+        if (isNaN(date)) {
+            return nomeArquivo;
         }
+
+        const timestamp = parseInt(timestampString); // Converte a string para um número inteiro
+
+        const data = new Date(timestamp);
+
+        const dia = String(data.getDate()).padStart(2, '0');
+        const mes = String(data.getMonth() + 1).padStart(2, '0');
+        const ano = data.getFullYear();
+        const horas = String(data.getHours()).padStart(2, '0');
+        const minutos = String(data.getMinutes()).padStart(2, '0');
+
+        const dataFormatada = `${dia}/${mes}/${ano}-${horas}:${minutos}`;
+
+
+        return `planilha - ${dataFormatada}.xlsx  `
     }
 
     const ReturnLinksDiv = () => {
@@ -220,7 +272,7 @@ const GetInfoCpf = () => {
         state.links.forEach((link, index) => {
 
             element.push(<div key={index + link.name}>
-                <p> {link.name} {`${(link.size/1024).toFixed(2)}MB`}: <a href={link.string} target="_blank" rel="noopener noreferrer">
+                <p> {link.name} {`${(link.size / 1024).toFixed(2)}MB`}: <a href={link.string} target="_blank" rel="noopener noreferrer">
                     <i className="fa fa-download ">
                     </i></a></p>
             </div>)
@@ -230,8 +282,35 @@ const GetInfoCpf = () => {
 
     }
 
+    const extrairDadosParentes = (arrayDeObjetos) => {
+
+        const dadosExtraidos = [];
+
+        try {
+            if (Array.isArray(arrayDeObjetos)) {
+                arrayDeObjetos.forEach(objeto => {
+                    const { cpf, campo, nome } = objeto;
+                    if (cpf && campo && nome) {
+                        dadosExtraidos.push({ cpf, campo, nome });
+                    }
+                });
+            } else if (typeof arrayDeObjetos === 'object' && arrayDeObjetos !== null) {
+                const { cpf, campo, nome } = arrayDeObjetos;
+                if (cpf && campo && nome) {
+                    dadosExtraidos.push({ cpf, campo, nome });
+                }
+            } else {
+                console.error("Tipo de dados inválido. Esperava-se um array ou um objeto.");
+            }
+        } catch (error) {
+            console.error("Ocorreu um erro:", error);
+        }
+
+        return dadosExtraidos;
+    };
+
     getAllXls();
-   
+
 
     return (
         <>
@@ -276,13 +355,13 @@ const GetInfoCpf = () => {
                     </div>
 
 
-                    <div style={{ display: "flex" }}>
+                    <div style={{ display: "none" }}>
                         <button
                             onClick={e => {
                                 // return getInfosData();
 
-                              //  return getAllXls()
-                              getInfosData();
+                                //  return getAllXls()
+                                getInfosData();
                             }}
                         >
                             Click
@@ -294,7 +373,7 @@ const GetInfoCpf = () => {
 
                 {state.links.length > 0 && (
                     <div className="links"
-                        
+
                     >
                         {ReturnLinksDiv()}
                     </div>
