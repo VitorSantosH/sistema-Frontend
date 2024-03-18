@@ -55,8 +55,6 @@ const EsteiraProposta = (props) => {
         loadingFiltro: false
     })
 
-
-
     useEffect(() => {
 
     }, [state.filtro,])
@@ -104,7 +102,8 @@ const EsteiraProposta = (props) => {
 
         }
         const response = await connect.getPropostas({ ...params })
-        console.log(response)
+    
+        
         const data = response.data
 
         setState({

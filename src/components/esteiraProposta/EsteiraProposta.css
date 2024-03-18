@@ -6,7 +6,7 @@
     width: 100%;
     padding: 1rem 2rem;
     box-sizing: border-box;
-
+    align-items: center;
 }
 
 .pesquisa {
@@ -17,6 +17,9 @@
     box-shadow: 10px 0px 8px 0px rgba(0, 0, 0, 0.10);
     padding: 1rem;
     border-radius: 8px;
+    max-width: 1350px;
+    width: 90%;
+    box-sizing: border-box;
 }
 
 .pesquisa .boxtitle {
@@ -25,7 +28,8 @@
     display: flex;
     align-items: flex-start;
     box-sizing: border-box;
-}
+    height: 3rem;
+  }
 
 .pesquisa .boxtitle h2 {
     font-size: 1.8rem;
@@ -73,15 +77,15 @@
     height: 2.35rem;
     line-height: 1.5;
     font-size: 1rem;
-    margin:10px 0;
+    margin: 10px 0;
     box-sizing: border-box;
 }
 
-.inputContainer .inputItem  input:focus {
+.inputContainer .inputItem input:focus {
     outline: none;
 }
 
-.inputContainer .inputItem input:focus-within, .inputContainer .inputItem  input:active {
+.inputContainer .inputItem input:focus-within, .inputContainer .inputItem input:active {
     outline: none;
     border-color: #17a2b8;
     border: solid 2px #17a2b8;
@@ -89,6 +93,7 @@
     transition: border-color 0.2s;
     transition: all 0.3ms;
 }
+
 #loading-login {
     border: 6px solid #e5e5e5;
     border-radius: 50%;
@@ -96,6 +101,7 @@
     width: 1rem;
     animation: loading-bar-spinner 400ms linear infinite;
 }
+
 .contendSpinner {
     display: flex;
     justify-content: center;
@@ -122,15 +128,18 @@
     padding: 1rem;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease; /* Adiciona uma transição suave */
+    transition: background-color 0.3s ease;
+    /* Adiciona uma transição suave */
 }
 
 .btnConsultar span:hover {
-    background-color: rgb(207, 110, 30); /* Cor alterada no hover */
+    background-color: rgb(207, 110, 30);
+    /* Cor alterada no hover */
 }
 
 .btnConsultar span:active {
-    background-color: rgb(187, 100, 25); /* Cor alterada durante o clique */
+    background-color: rgb(187, 100, 25);
+    /* Cor alterada durante o clique */
 }
 
 #react-select-3-input {
@@ -138,7 +147,19 @@
     box-shadow: none;
 }
 
-.css-w9q2zk-Input2 input:focus-within,  .css-w9q2zk-Input2  input:active {
+.css-w9q2zk-Input2 input:focus-within, .css-w9q2zk-Input2 input:active {
     outline: none;
-   
+
+}
+
+.esteiraProposta .tabela {
+    width: 90%;
+    max-width: 1350px;
+    font-size: 15px;
+}
+
+.esteiraProposta .css-w9q2zk-Input2 {
+    margin: 0 !important;
+    padding-bottom: 0 !important;
+    padding-top: 0 !important;
 }

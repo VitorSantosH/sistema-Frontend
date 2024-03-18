@@ -25,9 +25,11 @@ const GetInfoCpf = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const fileInputRef = useRef();
+
     const userRedux = useSelector(state => {
         return state.user;
     });
+
     const [state, setState] = useState({
         user: undefined,
         loginVerificado: false,
@@ -35,6 +37,7 @@ const GetInfoCpf = () => {
         links: [],
         loadedPlanilhas: false,
     });
+
     const [planilhaLink, setPlanilhaLink] = useState('');
 
     useEffect(() => {
@@ -150,7 +153,6 @@ const GetInfoCpf = () => {
             alert('Por favor, selecione um arquivo antes de fazer o upload.');
         }
     };
-
 
     const resetFileInput = () => {
         setSelectedFile(null);
@@ -272,7 +274,7 @@ const GetInfoCpf = () => {
         state.links.forEach((link, index) => {
 
             element.push(<div key={index + link.name}>
-                <p> {link.name} {`${(link.size / 1024).toFixed(2)}MB`}: <a href={link.string} target="_blank" rel="noopener noreferrer">
+                <p> {link.name} {`${((link.size / 1024) /1024) < 1.0 ? `${((link.size / 1024)).toFixed(2)}KB` : `${((link.size / 1024) /1024).toFixed(2)}MB `} `}: <a href={link.string} target="_blank" rel="noopener noreferrer">
                     <i className="fa fa-download ">
                     </i></a></p>
             </div>)
@@ -355,7 +357,7 @@ const GetInfoCpf = () => {
                     </div>
 
 
-                    <div style={{ display: "none" }}>
+                    <div style={{ display: "FLEX" }}>
                         <button
                             onClick={e => {
                                 // return getInfosData();
@@ -372,9 +374,7 @@ const GetInfoCpf = () => {
                 </div>
 
                 {state.links.length > 0 && (
-                    <div className="links"
-
-                    >
+                    <div className="links">
                         {ReturnLinksDiv()}
                     </div>
                 )}

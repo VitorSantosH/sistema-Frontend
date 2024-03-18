@@ -21,7 +21,7 @@ const stateRedux = createSlice({
             state.propostas = action.payload
         },
         setUser: (state, action) => {
-            state.user = JSON.parse(action.payload)
+            state.user = action.payload
         }
 
 

@@ -19,10 +19,11 @@ const connect = {
             },
         })
             .then(res => {
+                console.log(res)
 
                 return res
-
             }).catch(err => {
+                console.log(err)
 
                 return err.response
             })
@@ -133,7 +134,7 @@ const connect = {
 
     postProposta: async (props) => {
 
-        const response = await api.post('/proposta/crete', {
+        const response = await api.post('/proposta/create', {
 
             ...props
 

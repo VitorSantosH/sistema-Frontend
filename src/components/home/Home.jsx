@@ -1,6 +1,6 @@
 //react
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
 
 // css + assets
 import './Home.css';
@@ -25,6 +25,7 @@ const Home = () => {
     const userRedux = useSelector(state => {
         return state.user;
     });
+
     const [state, setState] = useState({
         user: undefined,
         loginVerificado: false
@@ -35,17 +36,15 @@ const Home = () => {
 
         if (!state.loginVerificado) {
             verifyLogin()
-            return setState({
-                ...state,
-                loginVerificado: true
-            })
         }
 
     }, [])
 
     function verifyLogin() {
 
-        const user = sessionStorage.getItem('user');
+        const user = JSON.parse(sessionStorage.getItem('user'));
+
+        console.log(user)
 
         if (!user) {
             navigate('/')
@@ -57,7 +56,13 @@ const Home = () => {
 
         }
 
-        return dispatch(setUser(user))
+         dispatch(setUser(user))
+
+        return setState({
+            ...state,
+            verifyLogin: true,
+            user: user
+        })
 
     }
 
@@ -80,6 +85,7 @@ const Home = () => {
             <div className="home">
                 <h1
                     onClick={e => {
+                        console.log(state)
                         return dispatch(decremented())
                     }}
                 >
@@ -116,6 +122,23 @@ const Home = () => {
 
                         <span>
                             Consultar Proprostas
+                        </span>
+
+                    </div>
+
+                    <div
+                        className="usersDiv"
+                        onClick={e => navigate(`/cadastro-FGTS`)}
+                    >
+
+
+                        <i
+                            className="fa  fa-address-book"
+                        >
+
+                        </i>
+                        <span>
+                           CADASTRO PROPOSTA FGTS
                         </span>
 
                     </div>

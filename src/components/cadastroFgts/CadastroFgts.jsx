@@ -177,14 +177,81 @@ const CadastroFgts = () => {
 
     async function cadastrarProposta() {
 
+        var fakeState = {
+            name: 'vitror h',
+            cpfValue: '13847888676',
+            genero: 'masculino',
+            sexo: '',
+            dataNacimento: '24041996',
+            RG: '20057479',
+            dataExpedicaoRg: '24042012',
+            emissorRg: 'PC',
+            ufRg: 'MG',
+            estadoCivil: 'SOLTEIRO',
+            naturalidadeUf: 'MG',
+            nomePai: 'pai',
+            nomeMae: 'mae',
+            cep: '32115160',
+            alfabetizado: 'true',
+            estadoEndereco: 'MG',
+            cidade: 'Contagem',
+            bairro: 'Novo Progresso',
+            endereco: 'Rua Alvimar Carneiro',
+            numero: '1251',
+            complemento: 'comple',
+            celular: '31996400879',
+            fixo: '',
+            email: 'wytorh@gmail.com',
+            mantenededora: 'MG',
+            renda: '1250.00',
+            representanteLegal: 'NAO',
+            metodoPagamento: 'CARTAO',
+            banco: 1,
+            nConta: '12548',
+            agencia: '1251',
+            libCredito: '',
+            bancoReceber: 1,
+            agenciaReceber: '58848',
+            contaReceber: '8457844',
+            tipoContaReceber: 'CORRENTE',
+            bancoFinanciamento: 1,
+            formaContrato: 'PAPCARD + CARTÃO',
+            convenioFinanciamanto: 'CRÉDITO PESSOAL',
+            tabelaCommissao: 48267,
+            agente: 'maria',
+            valorBaseComissao: '1251.00',
+            prazoComissao: 2,
+            tipoFormalizacao: 'PLUS',
+            numeroAcompanhamento: '782155785',
+            linkFinanceira: '7874584',
+            observacao: '',
+            loading: false
+        }
+
+
         setState(prevState => ({
             ...prevState,
             loading: true
         }))
 
         console.log(state)
-        const response = await connect.postProposta(state)
+        const response = await connect.postProposta(fakeState)
 
+        if (response.status != 200) {
+            Swal.fire({
+                icon: 'error',
+                text: "Erro ao salvar a proposta",
+                title: "Erro!"
+            })
+        } else {
+
+            Swal.fire({
+                icon: 'success',
+                text: "Proposta salva com sucesso",
+                title: "Sucesso!"
+            })
+
+        }
         console.log(response)
 
         return setState(prevState => ({

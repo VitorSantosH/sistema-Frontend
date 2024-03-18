@@ -29,6 +29,7 @@
     overflow: hidden;
     background-color: #fff;
     color: #212529;
+    max-width: 1250px;
 }
 
 .formularioFgts .subtitle {
@@ -149,7 +150,8 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    align-items: flex-end;
+    
+    align-items: center;
     width: 100%;
 }
 
@@ -222,11 +224,6 @@
     max-width: 160px;
     height: 4vw;
     border-radius: 8px;
-}
-
-.cpf input {
-
-    height: 3rem !important;
 }
 
 @keyframes loading-bar-spinner {
