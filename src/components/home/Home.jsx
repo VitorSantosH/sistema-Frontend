@@ -56,7 +56,7 @@ const Home = () => {
 
         }
 
-         dispatch(setUser(user))
+        dispatch(setUser(user))
 
         return setState({
             ...state,
@@ -138,7 +138,7 @@ const Home = () => {
 
                         </i>
                         <span>
-                           CADASTRO PROPOSTA FGTS
+                            CADASTRO PROPOSTA FGTS
                         </span>
 
                     </div>
@@ -176,6 +176,25 @@ const Home = () => {
                         </span>
 
                     </div>
+
+                    {userRedux.role == "admin" && (
+                        <div
+                            className="usersDiv"
+                            onClick={e => navigate(`/CriarEquipe`)}
+                        >
+
+                            <i
+                                className="fa  fa-users"
+                            >
+
+                            </i>
+
+                            <span>
+                                Criar Equipes
+                            </span>
+
+                        </div>
+                    )}
 
 
                 </div>
