@@ -235,7 +235,7 @@ const CadastroFgts = () => {
         }))
 
         console.log(state)
-        const response = await connect.postProposta(fakeState)
+        const response = await connect.postProposta(state)
 
         if (response.status != 200) {
             Swal.fire({
