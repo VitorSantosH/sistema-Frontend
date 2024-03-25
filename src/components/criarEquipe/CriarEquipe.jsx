@@ -11,6 +11,7 @@ import Menu from "../menu/Menu";
 // utilitarios 
 import Swal from "sweetalert2";
 import { json, useNavigate } from "react-router-dom";
+import connect from "../../config/connect.jsx";
 
 const CriarEquipe = (props) => {
 
@@ -19,6 +20,7 @@ const CriarEquipe = (props) => {
     const userRedux = useSelector(state => {
         return state.user;
     });
+    const user = JSON.parse(sessionStorage.getItem('user'));
 
     const [state, setState] = useState({
         loading: false,
@@ -32,11 +34,11 @@ const CriarEquipe = (props) => {
         numIntegrantes: 1
 
     })
-    
+
     function ReturnIntegrantesInput() {
 
         var data = [];
-    
+
         for (let index = 0; index < state.equipe.integrantes.length + state.numIntegrantes; index++) {
             let integrante = state.equipe.integrantes[index] || { name: "" }; // Verifica se o integrante existe, senão cria um novo objeto vazio
             let div = (
@@ -60,13 +62,32 @@ const CriarEquipe = (props) => {
                     </i>
                 </div>
             );
-    
+
             data.push(div);
         }
-    
+
         return <>{data}</>; // Corrigido: removido o spread operator redundante
     }
-    
+
+    async function CriarEquipePost() {
+
+        setState(prevState => ({
+            ...prevState,
+            loading: !state.loading
+        }));
+
+        console.log(user)
+
+        const response = await connect.createEquipe({ ...state, token : user.token });
+
+        console.log(response);
+
+        return setState(prevState => ({
+            ...prevState,
+            loading: false
+        }));
+
+    }
 
     return (
         <div className="CriarEquipe">
@@ -86,8 +107,19 @@ const CriarEquipe = (props) => {
                             name=""
                             id=""
                             placeholder="Digite o nome da equipe"
-                            readOnly
                             value={state.equipe.name}
+
+                            onChange={e => {
+                                
+                                const equipe = state.equipe;
+                                equipe.name = e.target.value;
+
+                                return setState(prevState => ({
+                                    ...prevState,
+                                    equipe: equipe
+                                }));
+
+                            }}
 
                         />
                     </i>
@@ -100,8 +132,18 @@ const CriarEquipe = (props) => {
                             name=""
                             id=""
                             placeholder="Líder da equipe"
-
                             value={state.equipe.lider}
+                            onChange={e => {
+                                
+                                const equipe = state.equipe;
+                                equipe.lider = e.target.value;
+
+                                return setState(prevState => ({
+                                    ...prevState,
+                                    equipe: equipe
+                                }));
+
+                            }}
 
                         />
                     </i>
@@ -133,7 +175,7 @@ const CriarEquipe = (props) => {
                 >
 
                     {!state.loading && (
-                        <span>
+                        <span onClick={e => CriarEquipePost(e)}>
                             Criar Equipe
                         </span>
                     )}

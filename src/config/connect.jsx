@@ -4,8 +4,6 @@ import config from './.config.jsx';
 
 const connect = {
 
-
-
     login: async (props) => {
 
         const response = await api.post('/user/login', {
@@ -170,7 +168,30 @@ const connect = {
 
         return response
 
-    }
+    },
+
+    createEquipe: async (props) => {
+
+        const response = await api.post('/user/create/equipe', {
+            ...props
+
+        }, {
+            headers: {
+                //  'Authorization': `${sessionStorage.getItem('authToken')}`,
+            },
+        })
+            .then(res => {
+
+                return res
+
+            }).catch(err => {
+
+                return err.response
+            })
+
+        return response
+
+    },
 }
 
 

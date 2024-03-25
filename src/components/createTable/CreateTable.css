@@ -3,8 +3,7 @@
     border-collapse: collapse;
     margin-top: 20px;
     box-shadow: 10px 0px 8px 0px rgba(0, 0, 0, 0.10);
-    border: solid rgba(73, 73, 73, 0.598);
-
+    background-color: white;
 }
 
 .tabela th, .tabela td {

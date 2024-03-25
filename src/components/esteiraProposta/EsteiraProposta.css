@@ -10,7 +10,6 @@
 }
 
 .pesquisa {
-
     display: flex;
     flex-direction: column;
     background-color: #fff;
@@ -18,7 +17,7 @@
     padding: 1rem;
     border-radius: 8px;
     max-width: 1350px;
-    width: 90%;
+    width: 90vw;
     box-sizing: border-box;
 }
 
@@ -29,7 +28,7 @@
     align-items: flex-start;
     box-sizing: border-box;
     height: 3rem;
-  }
+}
 
 .pesquisa .boxtitle h2 {
     font-size: 1.8rem;
@@ -153,13 +152,34 @@
 }
 
 .esteiraProposta .tabela {
-    width: 90%;
+    width: 90vw;
     max-width: 1350px;
     font-size: 15px;
+    box-sizing: border-box;
 }
 
 .esteiraProposta .css-w9q2zk-Input2 {
     margin: 0 !important;
     padding-bottom: 0 !important;
     padding-top: 0 !important;
+}
+
+
+.pesquisa .containerSelect {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    height: 5rem;
+    padding-bottom: 0.5rem;
+}
+
+.pesquisa .css-art2ul-ValueContainer2 {
+    max-height: 35px;
+}
+
+.pesquisa .selectBox {
+    cursor: pointer !important;
+    box-shadow: 0.1em 0.1em 0.1em #ced4da;
+    border: 1px solid #ced4da;
 }
