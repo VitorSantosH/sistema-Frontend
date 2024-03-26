@@ -172,6 +172,8 @@ const connect = {
 
     createEquipe: async (props) => {
 
+        console.log(props)
+
         const response = await api.post('/user/create/equipe', {
             ...props
 
@@ -192,6 +194,54 @@ const connect = {
         return response
 
     },
+
+    cadVendedor: async (props) => {
+
+        var {name, email, password, token} = props;
+
+        const response = await api.post('/user/generateUser', {
+            name,
+            email, 
+            password,
+            token
+
+        }, {
+            headers: {
+                //  'Authorization': `${sessionStorage.getItem('authToken')}`,
+            },
+        })
+            .then(res => {
+
+                return res
+
+            }).catch(err => {
+
+                return err.response
+            })
+
+        return response
+
+
+    },
+
+    getUsers: async (props) => {
+
+        try {
+            const response = await api.get('/user/all', {
+              params: {
+                token: props.token
+              },
+              headers: {
+                // 'Authorization': `${sessionStorage.getItem('authToken')}`,
+              },
+            });
+        
+            return response;
+          } catch (error) {
+            return error.response;
+          }
+
+    }
 }
 
 

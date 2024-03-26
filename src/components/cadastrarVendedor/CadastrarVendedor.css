@@ -1,4 +1,4 @@
-.CriarEquipe {
+.CadastrarVendedor {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -62,7 +62,7 @@
     align-items: center;
 }
 
-.containerRegistroForm div input, .containerRegistroForm div textarea, .containerRegistroForm div select  {
+.containerRegistroForm div input, .containerRegistroForm div textarea {
     box-sizing: border-box;
     width: 100%;
     height: 50px;

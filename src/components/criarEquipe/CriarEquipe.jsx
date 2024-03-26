@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './CriarEquipe.css';
 
 // redux 
@@ -7,6 +7,7 @@ import { incremented, decremented, setUser } from '../../redux/redux.js';
 
 //componentes 
 import Menu from "../menu/Menu";
+import Select from 'react-select';
 
 // utilitarios 
 import Swal from "sweetalert2";
@@ -22,7 +23,7 @@ const CriarEquipe = (props) => {
     });
     const user = JSON.parse(sessionStorage.getItem('user'));
 
-    const [state, setState] = useState({
+    const initialState = {
         loading: false,
         equipe: {
             name: "",
@@ -31,9 +32,27 @@ const CriarEquipe = (props) => {
                 name: ""
             }],
         },
-        numIntegrantes: 1
+        numIntegrantes: 1,
+        loadingUsers: false,
+        vendedores: []
+    }
 
+    const [state, setState] = useState({
+        ...initialState
     })
+
+    useEffect(() => {
+        // Effect code here
+
+        if (!state.loadingUsers) {
+            GetUsers()
+        }
+
+        // Return a cleanup function if needed
+        return () => {
+            // Cleanup code here
+        };
+    }, [state.loadingUsers]);
 
     function ReturnIntegrantesInput() {
 
@@ -78,15 +97,74 @@ const CriarEquipe = (props) => {
 
         console.log(user)
 
-        const response = await connect.createEquipe({ ...state, token : user.token });
+        const response = await connect.createEquipe({ name: state.equipe.name, lider: state.equipe.lider, token: user.token });
 
         console.log(response);
+
+        if (response.status == 350) {
+
+            Swal.fire({
+                title: "Erro",
+                icon: "warning",
+                text: response.data
+            })
+        } else {
+            Swal.fire({
+                title: "Sucesso",
+                icon: "success",
+                text: "Equipe criada com sucesso!"
+            })
+
+            return setState(prevState => ({
+                ...initialState
+            }));
+        }
 
         return setState(prevState => ({
             ...prevState,
             loading: false
         }));
 
+    }
+
+    async function GetUsers() {
+
+        setState(prevState => ({
+            ...prevState,
+            loadingUsers: !state.loadingUsers
+        }));
+
+        console.log(user)
+
+        const response = await connect.getUsers({ token: user.token });
+
+        console.log(response);
+
+        if (response.status != 200) {
+
+            Swal.fire({
+                title: "Erro",
+                icon: "warning",
+                text: response.data
+            })
+        }
+
+        setState(prevState => ({
+            ...prevState,
+            loadingUsers: true,
+            vendedores: response.data
+        }));
+
+    }
+
+    function UserSelect({ users, value, onChange }) {
+        return (
+            <select value={value} onChange={onChange}>
+                {users.map(user => (
+                    <option key={user._id} value={user.email}>{user.name}</option>
+                ))}
+            </select>
+        );
     }
 
     return (
@@ -110,7 +188,7 @@ const CriarEquipe = (props) => {
                             value={state.equipe.name}
 
                             onChange={e => {
-                                
+
                                 const equipe = state.equipe;
                                 equipe.name = e.target.value;
 
@@ -125,7 +203,8 @@ const CriarEquipe = (props) => {
                     </i>
                 </div>
 
-                <div className={state.emailRegexClass}>
+                {/**
+                 * <div className={state.emailRegexClass}>
                     <i className="fa fa-user">
                         <input
                             type="email"
@@ -134,7 +213,7 @@ const CriarEquipe = (props) => {
                             placeholder="Líder da equipe"
                             value={state.equipe.lider}
                             onChange={e => {
-                                
+
                                 const equipe = state.equipe;
                                 equipe.lider = e.target.value;
 
@@ -148,7 +227,26 @@ const CriarEquipe = (props) => {
                         />
                     </i>
                 </div>
-                {ReturnIntegrantesInput()}
+                 */}
+                <div className={state.emailRegexClass}>
+                    <i className="fa fa-user">
+                        <UserSelect
+                            users={state.vendedores}
+                            value={state.equipe.lider}
+                            onChange={e => {
+                                const newValue = e.target.value;
+                                setState(prevState => ({
+                                    ...prevState,
+                                    equipe: { ...prevState.equipe, lider: newValue }
+                                }));
+                            }}
+                        />
+                    </i>
+                </div>
+
+                {/**
+                 * ReturnIntegrantesInput()
+                 */}
 
                 <section
                     className="btn"

@@ -16,6 +16,7 @@ import Login from "./components/login/Login";
 import AdicionarXlsx from "./components/uploadXlsx/AdicionarXlsx";
 import GetInfoCpf from "./components/getInfoCpf/GetInfoCpf";
 import CriarEquipe from "./components/criarEquipe/CriarEquipe";
+import CadastrarVendedor from './components/cadastrarVendedor/CadastrarVendedor.jsx';
 
 const Rotas = () => {
 
@@ -23,6 +24,7 @@ const Rotas = () => {
 
         <Router>
             <Routes>
+                <Route exact path="/cadastrar/vendedor" element={<CadastrarVendedor />} />
                 <Route exact path="/CriarEquipe" element={<CriarEquipe />} />
                 <Route exact path="/GetInfoCpf" element={<GetInfoCpf />} />
                 <Route exact path="/AdicionarXlsx" element={<AdicionarXlsx />} />

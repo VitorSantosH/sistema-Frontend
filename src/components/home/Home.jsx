@@ -196,6 +196,26 @@ const Home = () => {
                         </div>
                     )}
 
+                    {userRedux.role == "admin" && (
+                        <div
+                            className="usersDiv"
+                            onClick={e => navigate(`/cadastrar/vendedor`)}
+                        >
+
+                            <i
+                                className="fa  fa-user"
+                            >
+
+                            </i>
+
+                            <span>
+                                Cadastrar Vendedor
+                            </span>
+
+                        </div>
+                    )}
+
+
 
                 </div>
 
