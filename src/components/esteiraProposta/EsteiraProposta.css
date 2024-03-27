@@ -183,3 +183,10 @@
     box-shadow: 0.1em 0.1em 0.1em #ced4da;
     border: 1px solid #ced4da;
 }
+
+.containerTABELA {
+    width: 90vw;
+    overflow: hidden;
+    box-sizing: border-box;
+    max-width: 1350px;
+}

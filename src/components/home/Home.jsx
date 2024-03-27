@@ -199,7 +199,7 @@ const Home = () => {
                     {userRedux.role == "admin" && (
                         <div
                             className="usersDiv"
-                            onClick={e => navigate(`/cadastrar/vendedor`)}
+                            onClick={e => navigate(`/gerenciar/vendedores`)}
                         >
 
                             <i
@@ -209,7 +209,7 @@ const Home = () => {
                             </i>
 
                             <span>
-                                Cadastrar Vendedor
+                                Gerenciar Vendedores
                             </span>
 
                         </div>

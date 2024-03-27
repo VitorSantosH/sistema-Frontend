@@ -4,7 +4,7 @@ import NumberFormat from 'react-number-format'
 import Swal from 'sweetalert2'
 import connect from "../../config/connect";
 import { parseDate } from '@internationalized/date';
-import {bancosBrasil} from '../cadastroFgts/subComponents/ufs_orgEmissor.jsx'
+import { bancosBrasil } from '../cadastroFgts/subComponents/ufs_orgEmissor.jsx'
 
 //components 
 import Menu from "../menu/Menu";
@@ -15,12 +15,12 @@ const EsteiraProposta = (props) => {
 
     const cpfRegex = /^\d{11}$/;
     const datafim = formatDate(new Date());
-    
+
     const data30DiasAtras = new Date();
     data30DiasAtras.setDate(data30DiasAtras.getDate() - 30);
 
     const dataIni = formatDate(data30DiasAtras)
-     
+
     const colunas = [
         { Header: 'ID', accessor: 'ID' },
         { Header: 'CPF', accessor: 'CPF' },
@@ -42,11 +42,12 @@ const EsteiraProposta = (props) => {
         financeira: "",
         financeiraValue: "",
         status: "",
-        dataIni: dataIni,
-        datafim: datafim,
+        dataIni: DataString(),
+        datafim: DataString(1),
         cadastradoPor: "",
         operação: "",
-        loading: false
+        loading: false,
+        initialLoading: false
     })
 
     const [stateDados, setStateDados] = useState({
@@ -56,6 +57,10 @@ const EsteiraProposta = (props) => {
     })
 
     useEffect(() => {
+
+        if (!state.initialLoading) {
+            getPropostaStatus();
+        }
 
     }, [state.filtro,])
 
@@ -98,17 +103,21 @@ const EsteiraProposta = (props) => {
             NOME: state.name,
             FINANCEIRA: state.financeiraValue ? state.financeiraValue : "",
             CADASTRADOPOR: state.cadastradoPor,
-            STATUS_PROPOSTA: state.status
+            STATUS_PROPOSTA: state.status,
+            dataInicial: state.dataIni,
+            dataFinal: state.datafim
 
         }
         const response = await connect.getPropostas({ ...params })
-    
-        
+
+        console.log(response)
+
         const data = response.data
 
         setState({
             ...state,
-            loading: false
+            loading: false,
+            initialLoading: true
         })
 
         return setStateDados({
@@ -116,7 +125,6 @@ const EsteiraProposta = (props) => {
             dadosTabela: converterDadosParaAcessos(data),
         })
     }
-   
 
     const converterDadosParaAcessos = (dados) => {
         return dados.map((item) => {
@@ -189,6 +197,18 @@ const EsteiraProposta = (props) => {
                 loadingFiltro: false
             }));
         }
+    }
+
+    function DataString(n = 0) {
+
+        var dataAtual = new Date();
+        dataAtual.setMonth(dataAtual.getMonth() + 1);
+        var dia = dataAtual.getDate() + n;
+        var mes = dataAtual.getMonth();
+        var ano = dataAtual.getFullYear();
+        var dataFormatada = ano + '-' + (mes < 10 ? '0' : '') + mes + '-' + (dia < 10 ? '0' : '') + dia;
+
+        return dataFormatada
     }
 
     return (
@@ -363,16 +383,16 @@ const EsteiraProposta = (props) => {
 
                         <div className="inputItem">
 
-                                <SelectBank action={e => {
+                            <SelectBank action={e => {
 
-                                    console.log("aqui")
-                                   
-                                     return setState({
-                                        ...state,
-                                        financeira: e.label,
-                                        financeiraValue: e.value
-                                    });
-                                }} label={'FINANCEIRA'}  icon="none" />
+                                console.log("aqui")
+
+                                return setState({
+                                    ...state,
+                                    financeira: e.label,
+                                    financeiraValue: e.value
+                                });
+                            }} label={'FINANCEIRA'} icon="none" />
 
                         </div>
 
@@ -418,7 +438,50 @@ const EsteiraProposta = (props) => {
 
                         </div>
 
+                        <div className="inputItem" style={{ "display": "flex" }}>
 
+                            <label htmlFor="cpf">
+                                DATA INÍCIO
+                            </label>
+
+                            <input
+                                type="date"
+                                id="start"
+                                name="trip-start"
+                                value={state.dataIni}
+                                onChange={e => {
+
+                                    return setState(prevState => ({
+                                        ...prevState,
+                                        dataIni: e.target.value
+                                    }))
+                                }} />
+
+
+                        </div>
+
+                        <div className="inputItem" style={{ "display": "flex" }}>
+
+                            <label htmlFor="cpf">
+                                DATA FIM
+                            </label>
+
+                            <input
+                                type="date"
+                                id="fim"
+                                name="trip-start"
+                                value={state.datafim}
+                                onChange={e => {
+
+                                    return setState(prevState => ({
+                                        ...prevState,
+                                        datafim: e.target.value
+                                    }))
+                                }}
+                            />
+
+
+                        </div>
 
                         <div className="inputItem" style={{ "display": "none" }}>
 
@@ -506,7 +569,7 @@ const EsteiraProposta = (props) => {
 
                             </section>
                         </div>
-                        
+
 
                     </div>
 
@@ -600,10 +663,12 @@ const EsteiraProposta = (props) => {
 
                 </div>
 
+                <div className="containerTABELA">
 
-                {stateDados.dadosTabela && (
-                    <CreateTable colunas={colunas} dados={stateDados.dadosFiltrados || stateDados.dadosTabela} />
-                )}
+                    {stateDados.dadosTabela && (
+                        <CreateTable colunas={colunas} dados={stateDados.dadosFiltrados || stateDados.dadosTabela} />
+                    )}
+                </div>
 
 
 
